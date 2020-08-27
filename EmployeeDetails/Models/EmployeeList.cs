@@ -12,10 +12,10 @@ namespace EmployeeDetails.Models
         {
             _employeeDetails = new List<Employee>()
             {
-                new Employee(){Id=1,Name="priyanka",Surname="jha",Address="jharkhand",Qualification="Btech",ContactNumber=987654321,Department="CSE"},
-                new Employee(){Id=2,Name="Tahseen",Surname="khan",Address="Gujarat",Qualification="Btech",ContactNumber=123456789,Department="CSE"},
-                new Employee(){Id=3,Name="Bivek",Surname="Mali",Address="WestBengal",Qualification="Btech",ContactNumber=0987654321,Department="CSE"},
-                new Employee(){Id=4,Name="Sweta",Surname="Kumari",Address="Bihar",Qualification="Btech",ContactNumber=0123456789,Department="CSE"},
+                new Employee(){Id=1,Name="priyanka",Surname="jha",Address="jharkhand",Qualification="Btech",ContactNumber=987654321,Department="Software Developer"},
+                new Employee(){Id=2,Name="Tahseen",Surname="khan",Address="Gujarat",Qualification="Btech",ContactNumber=123456789,Department="Software Developer"},
+                new Employee(){Id=3,Name="Bivek",Surname="Mali",Address="WestBengal",Qualification="Btech",ContactNumber=0987654321,Department=".Net Developer"},
+                new Employee(){Id=4,Name="Sweta",Surname="Kumari",Address="Bihar",Qualification="Btech",ContactNumber=0123456789,Department="HR"},
             };
         }
         public static List<Employee> GetAllEmployees()
