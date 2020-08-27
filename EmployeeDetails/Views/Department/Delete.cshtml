@@ -1,0 +1,14 @@
+﻿@model EmployeeDetails.Models.Department
+
+@{
+    ViewData["Title"] = "Delete Department";
+}
+
+<div>
+    <form asp-action="Delete">
+        <label asp-for="DepartName">Name: @Model.DepartName</label>
+        <br /><br />
+
+        <button type="submit" value="submit" class="btn btn-danger">Delete Department</button>
+    </form>
+</div>

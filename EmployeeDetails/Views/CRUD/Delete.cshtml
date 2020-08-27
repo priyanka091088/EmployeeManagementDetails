@@ -1,0 +1,29 @@
+﻿@model EmployeeDetails.Models.Employee
+
+@{
+    ViewData["Title"] = "Delete Employee";
+}
+
+<div>
+    <form asp-action="Delete">
+        <label asp-for="Name">Name: @Model.Name</label>
+        <br /><br />
+
+        <label asp-for="Surname">Surname:- @Model.Surname</label>
+        <br /><br />
+
+        <label asp-for="Address">Address:- @Model.Address</label>
+        <br /><br />
+
+        <label asp-for="Qualification">Qualification:- @Model.Qualification</label>
+        <br /><br />
+
+        <label asp-for="ContactNumber">Contact Number:- @Model.ContactNumber</label>
+        <br /><br />
+
+        <label asp-for="Department">Department:- @Model.Department</label>
+        <br /><br />
+
+        <button type="submit" value="submit" class="btn btn-danger">Delete Employee</button>
+    </form>
+</div>

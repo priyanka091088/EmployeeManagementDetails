@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Details Page";
+}
+    
+    <div class="text-center">
+        <h3>Employee Details</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Address</th>
+                    <th>Qualifiaction</th>
+                    <th>Contact Number</th>
+                    <th>Department</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var emp in Model)
+                {
+                    <tr>
+                        <td> @emp.Name</td>
+                        <td> @emp.Surname</td>
+                        <td> @emp.Address</td>
+                        <td> @emp.Qualification</td>
+                        <td> @emp.ContactNumber</td>
+                        <td> @emp.Department</td>
+                        <td><a href="~/CRUD/Edit/@emp.Id" class="btn btn-primary">EDIT</a></td>
+                        <td><a href="~/CRUD/Delete/@emp.Id" class="btn btn-danger">DELETE</a></td>
+                    </tr>
+
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td><a href="~/CRUD/Create" class="btn btn-primary">ADD</a></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>

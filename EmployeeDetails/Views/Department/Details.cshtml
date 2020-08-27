@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Details Page";
+}
+
+<div class="text-center">
+    <h3>Department Details</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Deaprtment Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dep in Model)
+            {
+                <tr>
+                    <td> @dep.DepartName</td>
+                    <td><a href="~/Department/Edit/@dep.DepartId" class="btn btn-primary">EDIT</a></td>
+                    <td><a href="~/Department/Delete/@dep.DepartId" class="btn btn-danger">DELETE</a></td>
+                </tr>
+
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td><a href="~/Department/Create" class="btn btn-primary">ADD</a></td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

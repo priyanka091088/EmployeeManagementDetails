@@ -1,0 +1,23 @@
+﻿@model EmployeeDetails.Models.Department
+
+@{
+    ViewData["Title"] = "Add Department";
+}
+
+<h2>ADD NEW DEPARTMENT</h2>
+<div>
+    @using (Html.BeginForm("Edit", "Department", FormMethod.Post))
+    {
+        <div>
+            <form asp-action="Edit">
+                <label asp-for="DepartName">Name</label>
+                <input asp-for="DepartName" type="text" name="DepartName" placeholder="Department Name" /><br /><br />
+
+
+                <button type="submit" value="submit">Update Department Details</button>
+            </form>
+        </div>
+    }
+
+</div>
+

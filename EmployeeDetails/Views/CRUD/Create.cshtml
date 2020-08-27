@@ -1,0 +1,37 @@
+﻿@model EmployeeDetails.Models.Employee
+
+@{
+    ViewData["Title"] = "Add Employee";
+}
+
+<h2>ADD NEW EMPLOYEE</h2>
+<div>
+    @using (Html.BeginForm("Create", "CRUD", FormMethod.Post))
+    {
+        <div>
+            <form asp-action="Create" #form="ngForm">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" type="text" name="Name" placeholder="Your Name" maxlength="20" /><br /><br />
+
+                <label asp-for="Surname">Surname</label>
+                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" maxlength="20"/><br /><br />
+
+                <label asp-for="Address">Address</label>
+                <input asp-for="Address" type="text" name="Address" placeholder="Your Address"maxlength="100" /><br /><br />
+
+                <label asp-for="Qualification">Qualification</label>
+                <input asp-for="Qualification" type="text" name="Qualification" placeholder="Your Qualifiaction" /><br /><br />
+
+                <label asp-for="ContactNumber">Contact Number</label>
+                <input asp-for="ContactNumber" type="number" name="ContactNumber" placeholder="Your Contact Number" /><br /><br />
+
+                <label asp-for="Department">Department</label>
+                <input asp-for="Department" type="text" name="Department" placeholder="Your Department" /><br /><br />
+
+                <button type="submit" value="submit" >Add Employee</button>
+            </form>
+        </div>
+    }
+
+</div>
+
