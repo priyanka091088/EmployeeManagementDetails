@@ -7,6 +7,7 @@ namespace EmployeeDetails.Models
 {
     public class MockEmployeeRepository : IEmployeeRepository
     {
+        
         public List<Employee> SelectAllEmployees()
         {
             return EmployeeList.GetAllEmployees();

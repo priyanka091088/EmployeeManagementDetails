@@ -26,7 +26,13 @@
                 <input asp-for="ContactNumber" type="number" name="ContactNumber" placeholder="Your Contact Number" /><br /><br />
 
                 <label asp-for="Department">Department</label>
-                <input asp-for="Department" type="text" name="Department" placeholder="Your Department" /><br /><br />
+                <select asp-for="Department" name="Department">
+                    <option value="HR">HR</option>
+                    <option value="Software Developer">Software Developer</option>
+                    <option value=".Net Developer">.Net Developer</option>
+                    <option value="Team Leader">Team Leader</option>
+                </select>
+                <br /><br />
 
                 <button type="submit" value="submit">Update Details</button>
             </form>
