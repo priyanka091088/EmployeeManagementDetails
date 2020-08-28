@@ -7,19 +7,19 @@ namespace EmployeeDetails.Models
 {
     public class MockEmployeeRepository : IEmployeeRepository
     {
-        public List<Models.Employee> SelectAllEmployees()
+        public List<Employee> SelectAllEmployees()
         {
             return EmployeeList.GetAllEmployees();
         }
-        public Models.Employee GetEmployeeById(int id)
+        public Employee GetEmployeeById(int id)
         {
             return EmployeeList.GetAllEmployees().Find(c => c.Id == id);
         }
-        public void AddEmployee(Models.Employee emp)
+        public void AddEmployee(Employee emp)
         {
             EmployeeList.AddNewEmployee(emp);
         }
-        public void UpdateEmployeeDetails(int id,Models.Employee emp)
+        public void UpdateEmployeeDetails(int id,Employee emp)
         {
             EmployeeList.UpdateEmployeeDetails(id,emp);
         }

@@ -7,19 +7,19 @@ namespace EmployeeDetails.Models
 {
     public class MockDepartmentRepository:IDepartmentRepository
     {
-        public List<Models.Department> SelectAllDepartment()
+        public List<Department> SelectAllDepartment()
         {
             return DepartmentList.GetAllDepartment();
         }
-        public Models.Department GetDepartById(int id)
+        public Department GetDepartById(int id)
         {
             return DepartmentList.GetAllDepartment().Find(c => c.DepartId == id);
         }
-        public void AddNewDepartment(Models.Department dep)
+        public void AddNewDepartment(Department dep)
         {
             DepartmentList.AddDepartment(dep);
         }
-        public void UpdateDepartmentDetails(int id,Models.Department dep)
+        public void UpdateDepartmentDetails(int id,Department dep)
         {
             DepartmentList.UpdateDepartDetails(id,dep);
         }
