@@ -21,9 +21,9 @@ namespace EmployeeDetails.Models
         [Required]
         public string Qualification { get; set; }
         [Required]
-        public string ContactNumber { get; set; }
+        public string ContactNo { get; set; }
         [Required]
-       // public string Department { get; set; }
+        public string DepartName { get; set; }
         public int DepartId { get; set; }
         public Department department { get; set; }
     }

@@ -50,5 +50,6 @@ C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\Dapper.dll
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\EmployeeDetails.csproj.CoreCompileInputs.cache
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\EmployeeDetails.MvcApplicationPartsAssemblyInfo.cache

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlClient;
+using Dapper;
 
 namespace EmployeeDetails.Models
 {
@@ -18,66 +19,48 @@ namespace EmployeeDetails.Models
             string cs = "Data Source = LAPTOP-KFMURN8F\\SQLEXPRESS02; Initial Catalog = EmployeeManagementDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
             con = new SqlConnection(cs);
             con.Open();
-            SqlCommand cmd = new SqlCommand("select * from Employee inner join Department on Employee.DepartId = Department.DepartId", con);
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                employees = new Employee();
-                employees.department = new Department();
-                employees.Eid = Convert.ToInt32(reader[0]);
-                employees.Name = reader[1].ToString();
-                employees.Surname = reader[2].ToString();
-                employees.Address = reader[3].ToString();
-                employees.Qualification = reader[4].ToString();
-                employees.ContactNumber = Convert.ToString(reader[5]);
-                employees.DepartId = Convert.ToInt32(reader[6]);
-                employees.department.DepartId = Convert.ToInt32(reader[7]);
-                employees.department.DepartName = reader[8].ToString();
-                emp.Add(employees);
-            }
-            con.Close();
+           
         }
         public List<Employee> SelectAllEmployees()
         {
-            return emp;
+
+            return con.Query<Employee>("select * from Employee INNER JOIN Department ON Employee.DepartId=Department.DepartId").ToList();
         }
         public Employee GetEmployeeById(int id)
         {
-            return emp.Find(c => c.Eid == id);
+            List<Employee> emp = con.Query<Employee>("select * from Employee").ToList();
+            return emp.Find(x => x.Eid == id);
         }
         public void AddEmployee(Employee employee)
         {
-            con.Open();
             // Insert query  
+            List<Employee> emp = con.Query<Employee>("select * from Employee").ToList();
+           
             string query = "INSERT INTO Employee(Name,Surname,Address,Qualification,ContactNo,DepartId) VALUES(@Name,@Surname,@Address,@Qualification,@ContactNo,@DepartId)";
-            SqlCommand cmd = new SqlCommand(query, con);
-
+            DynamicParameters Parameters = new DynamicParameters();
             employees = new Employee();
             // Passing parameter values  
             
-            cmd.Parameters.AddWithValue("@Name", employee.Name);
-            cmd.Parameters.AddWithValue("@Surname", employee.Surname);
-            cmd.Parameters.AddWithValue("@Address", employee.Address);
-            cmd.Parameters.AddWithValue("@Qualification", employee.Qualification);
-            cmd.Parameters.AddWithValue("@ContactNo", employee.ContactNumber);
-            cmd.Parameters.AddWithValue("@DepartId", employee.DepartId);
-            cmd.ExecuteNonQuery();
+            Parameters.Add("@Name", employee.Name);
+            Parameters.Add("@Surname", employee.Surname);
+            Parameters.Add("@Address", employee.Address);
+            Parameters.Add("@Qualification", employee.Qualification);
+            Parameters.Add("@ContactNo", employee.ContactNo);
+            Parameters.Add("@DepartId", employee.DepartId);
+            con.Execute(query,Parameters);
             con.Close();
         }
         public void UpdateEmployeeDetails(int id,Employee employee)
         {
-            con.Open();
-            string query = "UPDATE Employee SET Name = '" + employee.Name + "',Surname = '" + employee.Surname + "',Address = '" + employee.Address + "',Qualification = '" + employee.Qualification + "',ContactNo = " + employee.ContactNumber + ",DepartId = " + employee.DepartId + " WHERE Eid = " + id;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
+           
+            string query = "UPDATE Employee SET Name = '" + employee.Name + "',Surname = '" + employee.Surname + "',Address = '" + employee.Address + "',Qualification = '" + employee.Qualification + "',ContactNo = " + employee.ContactNo + ",DepartId = " + employee.DepartId + " WHERE Eid = " + id;
+            con.Execute(query);
             con.Close();
         }
         public void DeleteOneEmployee(int id)
         {
-            con.Open();
             string query = "DELETE FROM Employee WHERE Eid = " + id;
-            SqlCommand cmd = new SqlCommand(query, con);
-            cmd.ExecuteNonQuery();
+            con.Execute(query);
             con.Close();
         }
 

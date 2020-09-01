@@ -22,17 +22,15 @@ namespace EmployeeDetails.Controllers
         // GET: CRUDController/Details/5
         public ActionResult Details()
         {
-            ViewData["DeptName"] = new SelectList(_department.SelectAllDepartment(), "DepartId", "DepartName");
+            ViewData["DepartName"] = new SelectList(_department.SelectAllDepartment(), "DepartId", "DepartName");
             return View(e.SelectAllEmployees());
-            /* IEnumerable<Employee> model = e.SelectAllEmployees();
-             return (View(model));*/
-            //return View();
+           
         }
 
         // GET: CRUDController/Create
         public ActionResult Create()
         {
-            ViewBag.DeptName = _department.SelectAllDepartment();
+            ViewBag.DepartName = _department.SelectAllDepartment();
             return View();
         }
 
@@ -41,22 +39,22 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Employee emp)
         {
-            
-                ViewBag.DeptName = _department.SelectAllDepartment();
+            try { 
+                ViewBag.DepartName = _department.SelectAllDepartment();
                 e.AddEmployee(emp);
                 return RedirectToAction("Details");
-               
-            
-            /* catch
+            }
+
+             catch
              {
                  return View();
-             }*/
+             }
         }
 
         // GET: CRUDController/Edit/5
         public ActionResult Edit(int id)
         {
-            ViewBag.DeptName = _department.SelectAllDepartment();
+            ViewBag.DepartName = _department.SelectAllDepartment();
             Employee employee = e.GetEmployeeById(id);
             return View(employee);
         }
@@ -66,15 +64,15 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Employee emp)
         {
-            try
-            {
+           
+                ViewBag.DepartName = _department.SelectAllDepartment();
                 e.UpdateEmployeeDetails(id,emp);
                 return RedirectToAction("Details");
-            }
-            catch
+            
+           /* catch
             {
                 return View();
-            }
+            }*/
         }
 
         // GET: CRUDController/Delete/5
