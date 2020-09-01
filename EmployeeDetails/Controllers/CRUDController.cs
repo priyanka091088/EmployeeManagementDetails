@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EmployeeDetails.Controllers
 {
     public class CRUDController : Controller
     {
         MockEmployeeRepository e = new MockEmployeeRepository();
+        MockDepartmentRepository _department = new MockDepartmentRepository();
         // GET: CRUDController
         public ActionResult Index()
         {
@@ -20,13 +22,17 @@ namespace EmployeeDetails.Controllers
         // GET: CRUDController/Details/5
         public ActionResult Details()
         {
-            IEnumerable<Employee> model = e.SelectAllEmployees();
-            return (View(model));
+            ViewData["DeptName"] = new SelectList(_department.SelectAllDepartment(), "DepartId", "DepartName");
+            return View(e.SelectAllEmployees());
+            /* IEnumerable<Employee> model = e.SelectAllEmployees();
+             return (View(model));*/
+            //return View();
         }
 
         // GET: CRUDController/Create
         public ActionResult Create()
         {
+            ViewBag.DeptName = _department.SelectAllDepartment();
             return View();
         }
 
@@ -35,23 +41,24 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Employee emp)
         {
-             try
-             {
+            
+                ViewBag.DeptName = _department.SelectAllDepartment();
                 e.AddEmployee(emp);
                 return RedirectToAction("Details");
                
-            }
-             catch
+            
+            /* catch
              {
                  return View();
-             }
+             }*/
         }
 
         // GET: CRUDController/Edit/5
         public ActionResult Edit(int id)
         {
-            Employee model = e.GetEmployeeById(id);
-            return View(model);
+            ViewBag.DeptName = _department.SelectAllDepartment();
+            Employee employee = e.GetEmployeeById(id);
+            return View(employee);
         }
 
         // POST: CRUDController/Edit/5

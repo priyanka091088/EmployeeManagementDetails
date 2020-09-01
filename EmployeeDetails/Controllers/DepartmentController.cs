@@ -10,8 +10,14 @@ namespace EmployeeDetails.Controllers
 {
     public class DepartmentController : Controller
     {
+        //private readonly IDepartmentRepository _dept;
         MockDepartmentRepository depart = new MockDepartmentRepository();
+        // private MockDepartmentRepository _department;
         // GET: DepartmentController
+        /*public DepartmentController(IDepartmentRepository dept)
+        {
+            _dept = dept;
+        }*/
         public ActionResult Index()
         {
             return View();
@@ -20,8 +26,9 @@ namespace EmployeeDetails.Controllers
         // GET: DepartmentController/Details/5
         public ActionResult Details(int id)
         {
-            IEnumerable<Department> model = depart.SelectAllDepartment();
-            return (View(model));
+            // IEnumerable<Department> model = _dept.SelectAllDepartment();
+             return (View(depart.SelectAllDepartment()));
+            //return View();
         }
 
         // GET: DepartmentController/Create
@@ -35,8 +42,7 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Department dep)
         {
-            if (ModelState.IsValid)
-            {
+           
                 try
                 {
                     depart.AddNewDepartment(dep);
@@ -46,16 +52,17 @@ namespace EmployeeDetails.Controllers
                 {
                     return View();
                 }
-            }
-            return View();
+            
+           // return View();
            
         }
 
         // GET: DepartmentController/Edit/5
         public ActionResult Edit(int id)
         {
-            Department department = depart.GetDepartById(id);
-            return View(department);
+             Department department = depart.GetDepartById(id);
+             return View(department);
+            //return View();
         }
 
         // POST: DepartmentController/Edit/5
@@ -63,15 +70,16 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Department dep)
         {
-            try
-            {
-                depart.UpdateDepartmentDetails(id,dep);
-                return RedirectToAction("Details");
-            }
-            catch
-            {
-                return View();
-            }
+             try
+             {
+                 depart.UpdateDepartmentDetails(id,dep);
+                 return RedirectToAction("Details");
+             }
+             catch
+             {
+                 return View();
+             }
+           // return View();
         }
 
         // GET: DepartmentController/Delete/5
@@ -79,6 +87,7 @@ namespace EmployeeDetails.Controllers
         {
             Department department = depart.GetDepartById(id);
             return View(department);
+           // return View();
         }
 
         // POST: DepartmentController/Delete/5
@@ -86,15 +95,16 @@ namespace EmployeeDetails.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                depart.DeleteOneDepart(id);
-                return RedirectToAction("Details");
-            }
-            catch
-            {
-                return View();
-            }
+             try
+             {
+                 depart.DeleteOneDepart(id);
+                 return RedirectToAction("Details");
+             }
+             catch
+             {
+                 return View();
+             }
+            //return View();
         }
     }
 }

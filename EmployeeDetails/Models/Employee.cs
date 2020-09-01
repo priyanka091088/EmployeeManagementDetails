@@ -8,7 +8,7 @@ namespace EmployeeDetails.Models
 {
     public class Employee
     {
-        public int Id { get; set; }
+        public int Eid { get; set; }
         [Required]
         [MaxLength(20, ErrorMessage = "Maximum number of characters that can be entered is 20")]
         public string Name { get; set; }
@@ -21,8 +21,10 @@ namespace EmployeeDetails.Models
         [Required]
         public string Qualification { get; set; }
         [Required]
-        public int ContactNumber { get; set; }
+        public string ContactNumber { get; set; }
         [Required]
-        public string Department { get; set; }
+       // public string Department { get; set; }
+        public int DepartId { get; set; }
+        public Department department { get; set; }
     }
 }

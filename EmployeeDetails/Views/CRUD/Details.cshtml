@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<EmployeeDetails.Models.Employee>
+
+@{
     ViewData["Title"] = "Details Page";
 }
     
@@ -8,27 +10,51 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Address</th>
-                    <th>Qualifiaction</th>
-                    <th>Contact Number</th>
-                    <th>Department</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qualification)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.department.DepartName)
+                    </th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var emp in Model)
+                @foreach (var item in Model)
                 {
-                    <tr>
-                        <td> @emp.Name</td>
-                        <td> @emp.Surname</td>
-                        <td> @emp.Address</td>
-                        <td> @emp.Qualification</td>
-                        <td> @emp.ContactNumber</td>
-                        <td> @emp.Department</td>
-                        <td><a href="~/CRUD/Edit/@emp.Id" class="btn btn-primary">EDIT</a></td>
-                        <td><a href="~/CRUD/Delete/@emp.Id" class="btn btn-danger">DELETE</a></td>
-                    </tr>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Surname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Qualification)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modeItem => item.department.DepartName)
+                    </td>
+                    <td><a href="~/CRUD/Edit/@item.Eid" class="btn btn-primary">EDIT</a></td>
+                    <td><a href="~/CRUD/Delete/@item.Eid" class="btn btn-danger">DELETE</a></td>
+                </tr>
                     <tr></tr>
 
                 }
