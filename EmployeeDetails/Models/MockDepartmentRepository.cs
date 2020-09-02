@@ -9,61 +9,45 @@ namespace EmployeeDetails.Models
 {
     public class MockDepartmentRepository:IDepartmentRepository
     {
-        SqlConnection con;
        
-        public MockDepartmentRepository()
+        private readonly AppDbContext _context;
+       
+        public MockDepartmentRepository(AppDbContext context)
         {
-            string cs= "Data Source = LAPTOP-KFMURN8F\\SQLEXPRESS02; Initial Catalog = EmployeeManagementDb; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False";
-            con = new SqlConnection(cs);
-            con.Open();
+            _context = context;
             
         }
         public List<Department> SelectAllDepartment()
         {
-            return con.Query<Department>("select * from Department").ToList();
+            return _context.department.ToList();
         }
         public Department GetDepartById(int id)
         {
-            List<Department> dept = con.Query<Department>("select * from Department").ToList();
-            return dept.Find(x => x.DepartId == id);
+            return _context.department.FirstOrDefault(x => x.DepartId == id);
         }
         public void AddNewDepartment(Department dep)
-        { 
-            // Insert query  
-            List<Department> dept = con.Query<Department>("select * from Department").ToList();
-            dep.DepartId = dept.Max(x => x.DepartId) + 1;
-            string query = "INSERT INTO Department(DepartId,DepartName) VALUES(@DepartId, @DepartName)";
-            DynamicParameters Parameters = new DynamicParameters();
-            Parameters.Add("@DepartId", dep.DepartId);
-            Parameters.Add("@DepartName", dep.DepartName);
-            con.Execute(query, Parameters);
-            
-            con.Close();
-        }
-        public void UpdateDepartmentDetails(int id, Department dep)
         {
+            _context.department.Add(dep);
+            _context.SaveChanges();
            
-            string query = "UPDATE Department SET DepartName = '" + dep.DepartName + "' WHERE DepartId = " + id;
-            con.Execute(query);
-            con.Close();
+        }
+        public void UpdateDepartmentDetails(int id,Department dep)
+        {
+            Department d = _context.department.Find(id);
+            d.DepartId = id;
+            d.DepartName = dep.DepartName;
+            _context.department.Update(d);
+            _context.SaveChanges();
         }
         public void DeleteOneDepart(int id)
         {
-           string query = "DELETE FROM Department WHERE DepartId = " + id;
-            con.Execute(query);
-            con.Close();
+            var dept = _context.department.Find(id);
+            _context.department.Remove(dept);
+           /* var employees = _context.employee.FirstOrDefault(e => e.DepartId == id);
+            _context.employee.Remove(employees);*/
+            _context.SaveChanges();
+          
         }
-        /* SqlConnection con;
-         private List<Department> dept = new List<Department>();
-
-         private Department department;
-         public MockDepartmentRepository()
-         {
-
-             //string connect = "Data Source=LAPTOP-KFMURN8F\\SQLEXPRESS02;Initial Catalog=EmployeeManagementDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-
-
-
-         }*/
+       
     }
 }

@@ -10,14 +10,15 @@ namespace EmployeeDetails.Controllers
 {
     public class DepartmentController : Controller
     {
-        //private readonly IDepartmentRepository _dept;
-        MockDepartmentRepository depart = new MockDepartmentRepository();
-        // private MockDepartmentRepository _department;
+        
+       // private readonly AppDbContext _context;
+        private readonly IDepartmentRepository _depart;
         // GET: DepartmentController
-        /*public DepartmentController(IDepartmentRepository dept)
+        public DepartmentController(IDepartmentRepository depart)
         {
-            _dept = dept;
-        }*/
+            _depart = depart;
+           // _context = context;
+        }
         public ActionResult Index()
         {
             return View();
@@ -26,9 +27,8 @@ namespace EmployeeDetails.Controllers
         // GET: DepartmentController/Details/5
         public ActionResult Details(int id)
         {
-            // IEnumerable<Department> model = _dept.SelectAllDepartment();
-             return (View(depart.SelectAllDepartment()));
-            //return View();
+            var departlist = _depart.SelectAllDepartment();
+            return View(departlist);
         }
 
         // GET: DepartmentController/Create
@@ -40,27 +40,25 @@ namespace EmployeeDetails.Controllers
         // POST: DepartmentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Department dep)
+        public ActionResult Create([Bind("DepartId,DepartName")] Department dep)
         {
            
                 try
                 {
-                    depart.AddNewDepartment(dep);
+                    _depart.AddNewDepartment(dep);
                     return RedirectToAction("Details");
                 }
                 catch
                 {
                     return View();
                 }
-            
-           // return View();
            
         }
 
         // GET: DepartmentController/Edit/5
         public ActionResult Edit(int id)
         {
-             Department department = depart.GetDepartById(id);
+             Department department = _depart.GetDepartById(id);
              return View(department);
             //return View();
         }
@@ -68,11 +66,11 @@ namespace EmployeeDetails.Controllers
         // POST: DepartmentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Department dep)
+        public ActionResult Edit(int id,Department dep)
         {
              try
              {
-                 depart.UpdateDepartmentDetails(id,dep);
+                 _depart.UpdateDepartmentDetails(id,dep);
                  return RedirectToAction("Details");
              }
              catch
@@ -85,7 +83,7 @@ namespace EmployeeDetails.Controllers
         // GET: DepartmentController/Delete/5
         public ActionResult Delete(int id)
         {
-            Department department = depart.GetDepartById(id);
+            Department department = _depart.GetDepartById(id);
             return View(department);
            // return View();
         }
@@ -97,7 +95,7 @@ namespace EmployeeDetails.Controllers
         {
              try
              {
-                 depart.DeleteOneDepart(id);
+                 _depart.DeleteOneDepart(id);
                  return RedirectToAction("Details");
              }
              catch

@@ -11,9 +11,15 @@ namespace EmployeeDetails.Controllers
 {
     public class CRUDController : Controller
     {
-        MockEmployeeRepository e = new MockEmployeeRepository();
-        MockDepartmentRepository _department = new MockDepartmentRepository();
+        private readonly IEmployeeRepository e;
+        private readonly IDepartmentRepository _department;
         // GET: CRUDController
+
+        public CRUDController(IEmployeeRepository emp,IDepartmentRepository dep)
+        {
+            e = emp;
+            _department = dep;
+        }
         public ActionResult Index()
         {
             return View();
@@ -23,8 +29,21 @@ namespace EmployeeDetails.Controllers
         public ActionResult Details()
         {
             ViewData["DepartName"] = new SelectList(_department.SelectAllDepartment(), "DepartId", "DepartName");
-            return View(e.SelectAllEmployees());
-           
+           // return View(e.SelectAllEmployees());
+             var employeesList = e.SelectAllEmployees();
+            var deptlist = _department.SelectAllDepartment();
+
+ 
+
+            foreach(var emp in employeesList)
+            {
+                emp.department = (deptlist.FirstOrDefault(x => x.DepartId == emp.DepartId));
+            }
+
+ 
+
+            return View("/Views/CRUD/Details.cshtml", employeesList);
+
         }
 
         // GET: CRUDController/Create
@@ -69,10 +88,6 @@ namespace EmployeeDetails.Controllers
                 e.UpdateEmployeeDetails(id,emp);
                 return RedirectToAction("Details");
             
-           /* catch
-            {
-                return View();
-            }*/
         }
 
         // GET: CRUDController/Delete/5

@@ -14,10 +14,10 @@
                 <input asp-for="Name" type="text" name="Name" placeholder="Your Name" maxlength="20" /><br /><br />
 
                 <label asp-for="Surname">Surname</label>
-                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" maxlength="20"/><br /><br />
+                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" maxlength="20" /><br /><br />
 
                 <label asp-for="Address">Address</label>
-                <input asp-for="Address" type="text" name="Address" placeholder="Your Address"maxlength="100" /><br /><br />
+                <input asp-for="Address" type="text" name="Address" placeholder="Your Address" maxlength="100" /><br /><br />
 
                 <label asp-for="Qualification">Qualification</label>
                 <input asp-for="Qualification" type="text" name="Qualification" placeholder="Your Qualifiaction" /><br /><br />
@@ -25,20 +25,21 @@
                 <label asp-for="ContactNo">Contact Number</label>
                 <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
 
-               
-                <div class="form-group">
-                     <label asp-for="department.DepartName" class="control-label"></label>
-                     <select asp-for="department.DepartName"  class="form-control">
-                            @foreach (var item in @ViewBag.DepartName)
-                            {
-                                <option value="@item.DepartId">@item.DepartName</option>
-                            }
-                        </select>
-                    <span asp-validation-for="department.DepartName" class="text-danger"></span>
-                </div>
+
+           <div class="form-group">
+          <label asp-for="DepartId" class="control-label"></label>
+          <select asp-for="DepartId" name="DepartId" class="form-control">
+                 @foreach (var item in @ViewBag.DepartName)
+                 {
+                     <option value="@item.DepartId">@item.DepartName</option>
+                 }
+             </select>
+         
+     </div>
+                
                 <br /><br />
 
-                <button type="submit" value="submit" >Add Employee</button>
+                <button type="submit" value="submit">Add Employee</button>
             </form>
         </div>
     }
