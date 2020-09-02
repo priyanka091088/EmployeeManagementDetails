@@ -43,6 +43,7 @@ namespace EmployeeDetails.Models
             e.Address = emp.Address;
             e.Qualification = emp.Qualification;
             e.ContactNo = emp.ContactNo;
+            e.DepartId = emp.DepartId;
             _context.employee.Update(e);
             _context.SaveChanges();
             
