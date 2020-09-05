@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeDetails.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -47,6 +48,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: CRUDController/Create
+       [Authorize(Roles ="Admin,HR")]
         public ActionResult Create()
         {
             ViewBag.DepartName = _department.SelectAllDepartment();
@@ -56,6 +58,7 @@ namespace EmployeeDetails.Controllers
         // POST: CRUDController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles ="Admin,HR")]
         public IActionResult Create(Employee emp)
         {
             try { 
@@ -71,6 +74,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: CRUDController/Edit/5
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult Edit(int id)
         {
             ViewBag.DepartName = _department.SelectAllDepartment();
@@ -81,6 +85,7 @@ namespace EmployeeDetails.Controllers
         // POST: CRUDController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult Edit(int id, Employee emp)
         {
            
@@ -91,6 +96,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: CRUDController/Delete/5
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult Delete(int id)
         {
             Employee model = e.GetEmployeeById(id);
@@ -100,6 +106,7 @@ namespace EmployeeDetails.Controllers
         // POST: CRUDController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,HR")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
             try

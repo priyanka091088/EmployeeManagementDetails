@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeDetails.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: DepartmentController/Create
+        [Authorize(Roles ="Admin")]
         public ActionResult Create()
         {
             return View();
@@ -40,6 +42,7 @@ namespace EmployeeDetails.Controllers
         // POST: DepartmentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind("DepartId,DepartName")] Department dep)
         {
            
@@ -56,6 +59,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: DepartmentController/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
              Department department = _depart.GetDepartById(id);
@@ -66,6 +70,7 @@ namespace EmployeeDetails.Controllers
         // POST: DepartmentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id,Department dep)
         {
              try
@@ -81,6 +86,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: DepartmentController/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Department department = _depart.GetDepartById(id);
@@ -91,6 +97,7 @@ namespace EmployeeDetails.Controllers
         // POST: DepartmentController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id, IFormCollection collection)
         {
              try

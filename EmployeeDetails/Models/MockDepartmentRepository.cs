@@ -43,11 +43,10 @@ namespace EmployeeDetails.Models
         {
             var dept = _context.department.Find(id);
             _context.department.Remove(dept);
-           /* var employees = _context.employee.FirstOrDefault(e => e.DepartId == id);
-            _context.employee.Remove(employees);*/
+            _context.employee.RemoveRange(_context.employee.Where(e=>e.DepartId==id));
             _context.SaveChanges();
-          
+            
         }
-       
+
     }
 }
