@@ -205,3 +205,5 @@ C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ForgotPasswordConfirmation.cshtml.g.cs
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPassword.cshtml.g.cs
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ResetPasswordConfirmation.cshtml.g.cs
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePassword.cshtml.g.cs
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswordConfirmation.cshtml.g.cs

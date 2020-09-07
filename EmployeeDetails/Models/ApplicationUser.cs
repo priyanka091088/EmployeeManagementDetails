@@ -8,6 +8,6 @@ namespace EmployeeDetails.Models
 {
     public class ApplicationUser:IdentityUser
     {
-        public string UserDepart { get; set; }
+        public int Eid { get; set; }
     }
 }

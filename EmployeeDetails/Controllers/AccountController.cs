@@ -28,34 +28,6 @@ namespace EmployeeDetails.Controllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "CRUD");
         }
-        
-        [HttpGet]
-        public IActionResult Register()
-        {
-            return View();
-        }
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new IdentityUser { UserName = model.Email, Email = model.Email };
-               var result= await userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Index", "Home");
-                }
-
-                foreach(var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
-            }
-            return View(model);
-        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -69,23 +41,28 @@ namespace EmployeeDetails.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.Email,model.Password,
-                                                model.RememberMe,false);
-
-                if (result.Succeeded)
+                var loggedInUser = await userManager.FindByEmailAsync(model.Email);
+                if(loggedInUser != null)
                 {
-                    if (!string.IsNullOrEmpty(returnUrl))
+                    var result = await signInManager.PasswordSignInAsync(loggedInUser.UserName, model.Password,
+                                                model.RememberMe, false);
+
+                    if (result.Succeeded)
                     {
-                        return Redirect(returnUrl);
+                        if (!string.IsNullOrEmpty(returnUrl))
+                        {
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Home");
+                        }
+
                     }
-                    else
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                    
+
                 }
 
-                
+
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
                 
             }
@@ -158,6 +135,38 @@ namespace EmployeeDetails.Controllers
             }
             return View(model);
         }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+                var result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                    return View();
+                }
+                await signInManager.RefreshSignInAsync(user);
+                return View("ChangePasswordConfirmation");
+            }
+            return View(model);
+        }
+
 
     }
 }
