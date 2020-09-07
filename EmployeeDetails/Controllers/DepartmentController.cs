@@ -26,6 +26,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: DepartmentController/Details/5
+        [Authorize(Roles ="Admin,HR")]
         public ActionResult Details(int id)
         {
             var departlist = _depart.SelectAllDepartment();
