@@ -6,16 +6,18 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace EmployeeDetails.Models
 {
     public class MockEmployeeRepository :IEmployeeRepository
     {
         private readonly AppDbContext _context;
-
+        
         public MockEmployeeRepository(AppDbContext context)
         {
             _context = context;
+            
            
         }
         public List<Employee> SelectAllEmployees()
@@ -51,6 +53,7 @@ namespace EmployeeDetails.Models
         public void DeleteOneEmployee(int id)
         {
             var employee = _context.employee.Find(id);
+            
             _context.employee.Remove(employee);
             _context.SaveChanges();
 

@@ -103,17 +103,7 @@ namespace EmployeeDetails.Controllers
                 }
             }
             return View();
-          /*  try
-            { 
-                ViewBag.DepartName = _department.SelectAllDepartment();
-                e.AddEmployee(emp);
-                return RedirectToAction("Details");
-            }
-
-             catch
-             {
-                 return View();
-             }*/
+          
         }
 
         // GET: CRUDController/Edit/5
@@ -150,10 +140,13 @@ namespace EmployeeDetails.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin,HR")]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, IFormCollection collection)
         {
             try
             {
+                var emp = context.employee.Find(id);
+                var userEmp = await userManager.FindByNameAsync(emp.Name);
+                await userManager.DeleteAsync(userEmp);
                 e.DeleteOneEmployee(id);
                 return RedirectToAction("Details");
             }
