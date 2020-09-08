@@ -28,11 +28,57 @@ namespace EmployeeDetails.Controllers
             userManager = _userManager;
             roleManager = _roleManager;
         }
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            var users = userManager.Users;
+            if (users!=null)
+            {
+                return View();
+            }
+            else
+            {
+                //Pre-Generating Admin
+                var adminName = "Shruti";
+                var adminEmail = "shrutisingh@gmail.com";
+                var adminPassword = "Shrutisingh@123";
+                var user = new IdentityUser
+                {
+                    UserName = adminName,
+                    Email = adminEmail
+                };
+                var result = await userManager.CreateAsync(user, adminPassword);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, "Admin");
+                    return RedirectToAction("Index");
+                }
 
+                //Pre-generating HR
+                var hrName = "Yash";
+                var hrEmail = "yashpatel@gmail.com";
+                var hrPassword = "Yashpatel@123";
+                var user2 = new IdentityUser
+                {
+                    UserName = hrName,
+                    Email = hrEmail
+                };
+               var result2 = await userManager.CreateAsync(user2, hrPassword);
+                
+                if (result2.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user2, "HR");
+                    return RedirectToAction("Index");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+                return View();
+             }
+
+         }
+         
         // GET: CRUDController/Details/5
         [Authorize(Roles ="Admin,HR,Employee")]
         public ActionResult Details()
@@ -86,8 +132,8 @@ namespace EmployeeDetails.Controllers
             {
                 var role = await roleManager.RoleExistsAsync("Employee");
                 var userName = emp.Name;
-                var email = emp.Name + "@gmail.com";
-                var password = emp.Name.ToUpper() + emp.Surname + "@2020";
+                var email = emp.Name.ToLower() + emp.Surname.ToLower() + "@gmail.com";
+                var password = emp.Name.ToUpper() + emp.Surname + "@123";
                 var user = new IdentityUser { UserName = userName, Email = email };
                 var result = await userManager.CreateAsync(user, password);
 
