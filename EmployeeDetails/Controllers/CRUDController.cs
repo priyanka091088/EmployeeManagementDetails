@@ -42,7 +42,13 @@ namespace EmployeeDetails.Controllers
                     Name = "HR"
                 };
                 IdentityResult roleResult2 = await roleManager.CreateAsync(identityRole2);
-                foreach (IdentityError error in roleResult.Errors)
+
+                IdentityRole identityRole3 = new IdentityRole
+                {
+                    Name = "Employee"
+                };
+            IdentityResult roleResult3 = await roleManager.CreateAsync(identityRole3);
+            foreach (IdentityError error in roleResult.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
@@ -201,7 +207,7 @@ namespace EmployeeDetails.Controllers
             try
             {
                 var emp = context.employee.Find(id);
-                var userEmp = await userManager.FindByNameAsync(emp.Name);
+                var userEmp = await userManager.FindByNameAsync(emp.Email);
                 await userManager.DeleteAsync(userEmp);
                 e.DeleteOneEmployee(id);
                 return RedirectToAction("Details");
