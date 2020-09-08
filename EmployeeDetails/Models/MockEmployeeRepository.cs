@@ -43,6 +43,7 @@ namespace EmployeeDetails.Models
             e.Name = emp.Name;
             e.Surname = emp.Surname;
             e.Address = emp.Address;
+            e.Email = emp.Email;
             e.Qualification = emp.Qualification;
             e.ContactNo = emp.ContactNo;
             e.DepartId = emp.DepartId;

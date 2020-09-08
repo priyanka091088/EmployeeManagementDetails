@@ -19,22 +19,25 @@
                 <label asp-for="Address">Address</label>
                 <input asp-for="Address" type="text" name="Address" placeholder="Your Address" /><br /><br />
 
+                <label asp-for="Email">Name</label>
+                <input asp-for="Email" type="text" name="Email" placeholder="Your Email" /><br /><br />
+
                 <label asp-for="Qualification">Qualification</label>
                 <input asp-for="Qualification" type="text" name="Qualification" placeholder="Your Qualifiaction" /><br /><br />
 
                 <label asp-for="ContactNo">Contact Number</label>
                 <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
 
-                
-                    <label asp-for="department.DepartName" class="control-label"></label>
-                    <select asp-for="DepartId" class="form-control">
-                        @foreach (var item in @ViewBag.DepartName)
-                        {
-                            <option value="@item.DepartId">@item.DepartName</option>
-                        }
-                    </select>
-                    <span asp-validation-for="department.DepartName" class="text-danger"></span>
-               
+
+                <label asp-for="department.DepartName" class="control-label"></label>
+                <select asp-for="DepartId" class="form-control">
+                    @foreach (var item in @ViewBag.DepartName)
+                    {
+                        <option value="@item.DepartId">@item.DepartName</option>
+                    }
+                </select>
+                <span asp-validation-for="department.DepartName" class="text-danger"></span>
+
                 <br /><br />
 
                 <button type="submit" value="submit">Update Details</button>

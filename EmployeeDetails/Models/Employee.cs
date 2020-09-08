@@ -20,6 +20,9 @@ namespace EmployeeDetails.Models
         [MaxLength(100,ErrorMessage = "Maximum number of characters that can be entered is 20")]
         public string Address { get; set; }
         [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+        [Required]
         public string Qualification { get; set; }
         [Required]
         public string ContactNo { get; set; }

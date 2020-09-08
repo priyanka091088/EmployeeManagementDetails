@@ -38,7 +38,7 @@ namespace EmployeeDetails.Controllers
             else
             {
                 //Pre-Generating Admin
-                var adminName = "Shruti";
+                var adminName = "shrutisingh@gmail.com";
                 var adminEmail = "shrutisingh@gmail.com";
                 var adminPassword = "Shrutisingh@123";
                 var user = new IdentityUser
@@ -54,7 +54,7 @@ namespace EmployeeDetails.Controllers
                 }
 
                 //Pre-generating HR
-                var hrName = "Yash";
+                var hrName = "yashpatel@gmail.com";
                 var hrEmail = "yashpatel@gmail.com";
                 var hrPassword = "Yashpatel@123";
                 var user2 = new IdentityUser
@@ -90,7 +90,7 @@ namespace EmployeeDetails.Controllers
             {
                 var user = userManager.GetUserAsync(HttpContext.User).Result;
                 var employeesList = e.SelectAllEmployees().ToList();
-                var employee = employeesList.Find(x => x.Name == user.UserName);
+                var employee = employeesList.Find(x => x.Email == user.UserName);
                 var emps = employeesList.Where(x => x.DepartId == employee.DepartId).ToList();
                 var deptlist = _department.SelectAllDepartment();
                 foreach (var emp in emps)
@@ -131,8 +131,8 @@ namespace EmployeeDetails.Controllers
             if (ModelState.IsValid)
             {
                 var role = await roleManager.RoleExistsAsync("Employee");
-                var userName = emp.Name;
-                var email = emp.Name.ToLower() + emp.Surname.ToLower() + "@gmail.com";
+                var userName = emp.Email;
+                var email = emp.Email;
                 var password = emp.Name.ToUpper() + emp.Surname + "@123";
                 var user = new IdentityUser { UserName = userName, Email = email };
                 var result = await userManager.CreateAsync(user, password);

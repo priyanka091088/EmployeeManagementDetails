@@ -19,6 +19,9 @@
                 <label asp-for="Address">Address</label>
                 <input asp-for="Address" type="text" name="Address" placeholder="Your Address" maxlength="100" /><br /><br />
 
+                <label asp-for="Email">Name</label>
+                <input asp-for="Email" type="text" name="Email" placeholder="Your Email-Id" maxlength="100" /><br /><br />
+
                 <label asp-for="Qualification">Qualification</label>
                 <input asp-for="Qualification" type="text" name="Qualification" placeholder="Your Qualifiaction" /><br /><br />
 
@@ -26,17 +29,17 @@
                 <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
 
 
-           <div class="form-group">
-          <label asp-for="DepartId" class="control-label"></label>
-          <select asp-for="DepartId" name="DepartId" class="form-control">
-                 @foreach (var item in @ViewBag.DepartName)
-                 {
-                     <option value="@item.DepartId">@item.DepartName</option>
-                 }
-             </select>
-         
-     </div>
-                
+                <div class="form-group">
+                    <label asp-for="DepartId" class="control-label"></label>
+                    <select asp-for="DepartId" name="DepartId" class="form-control">
+                        @foreach (var item in @ViewBag.DepartName)
+                        {
+                            <option value="@item.DepartId">@item.DepartName</option>
+                        }
+                    </select>
+
+                </div>
+
                 <br /><br />
 
                 <button type="submit" value="submit">Add Employee</button>
