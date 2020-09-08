@@ -30,13 +30,23 @@ namespace EmployeeDetails.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var users = userManager.Users;
-            if (users!=null)
-            {
-                return View();
-            }
-            else
-            {
+           
+                IdentityRole identityRole = new IdentityRole
+                {
+                    Name = "Admin"
+                };
+                IdentityResult roleResult = await roleManager.CreateAsync(identityRole);
+
+                IdentityRole identityRole2 = new IdentityRole
+                {
+                    Name = "HR"
+                };
+                IdentityResult roleResult2 = await roleManager.CreateAsync(identityRole2);
+                foreach (IdentityError error in roleResult.Errors)
+                {
+                    ModelState.AddModelError("", error.Description);
+                }
+            
                 //Pre-Generating Admin
                 var adminName = "shrutisingh@gmail.com";
                 var adminEmail = "shrutisingh@gmail.com";
@@ -50,7 +60,7 @@ namespace EmployeeDetails.Controllers
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(user, "Admin");
-                    return RedirectToAction("Index");
+                  
                 }
 
                 //Pre-generating HR
@@ -74,9 +84,9 @@ namespace EmployeeDetails.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                return View();
-             }
 
+               return View();
+           
          }
          
         // GET: CRUDController/Details/5
