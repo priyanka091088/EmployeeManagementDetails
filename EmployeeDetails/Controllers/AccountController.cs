@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeDetails.Models;
 using EmployeeDetails.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,14 +13,19 @@ namespace EmployeeDetails.Controllers
 {
     public class AccountController : Controller
     {
+        public string loggedInEmail;
+        private readonly IEmployeeRepository e;
         private readonly UserManager<IdentityUser> userManager;
         private readonly SignInManager<IdentityUser> signInManager;
-       // private readonly ILogger<AccountController> logger;
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        private readonly AppDbContext context;
+        
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+                                IEmployeeRepository emp,AppDbContext context)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            //this.logger = logger;
+            this.context = context;
+            e = emp;
         }
 
         [HttpPost]
@@ -39,6 +45,8 @@ namespace EmployeeDetails.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            loggedInEmail = model.Email;
+
             if (ModelState.IsValid)
             {
                 var loggedInUser = await userManager.FindByEmailAsync(model.Email);
@@ -167,6 +175,6 @@ namespace EmployeeDetails.Controllers
             return View(model);
         }
 
-
+        
     }
 }

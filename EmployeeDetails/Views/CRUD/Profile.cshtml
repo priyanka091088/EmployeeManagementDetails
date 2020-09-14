@@ -1,0 +1,39 @@
+﻿@model EmployeeDetails.Models.Employee
+
+@{
+    ViewData["Title"] = "Update Employee's Profile";
+}
+
+<h2>UPDATE EMPLOYEE PROFILE</h2>
+<div>
+    <div>
+
+        <label asp-for="Name">Name : @Model.Name</label>
+        <br /><br />
+
+        <label asp-for="Surname">Surname : @Model.Surname</label>
+        <br /><br />
+
+        <label asp-for="Address">Address : @Model.Address</label>
+        <br /><br />
+
+        <label asp-for="Email">Email : @Model.Email</label>
+        <br /><br />
+
+        <label asp-for="Qualification">Qualification : @Model.Qualification</label>
+        <br /><br />
+
+        <label asp-for="ContactNo">Contact Number : @Model.ContactNo</label>
+        <br /><br />
+
+
+        <label asp-for="department.DepartName">Department Name : @Model.department.DepartName</label>
+        <br /><br />
+
+              <a href="~/CRUD/EditProfile/@Model.Eid" class="btn btn-primary text-center"> Edit Profile</a>
+
+    </div>
+
+
+</div>
+

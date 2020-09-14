@@ -1,0 +1,35 @@
+﻿@model EmployeeDetails.Models.Employee
+
+@{
+    ViewData["Title"] = "Update Employee";
+}
+
+<h2>ADD NEW EMPLOYEE</h2>
+<div>
+    @using (Html.BeginForm("EditProfile", "CRUD", FormMethod.Post))
+    {
+        <div>
+            <form asp-action="Edit">
+                <label asp-for="Name">Name</label>
+                <input asp-for="Name" type="text" name="Name" placeholder="Your Name" /><br /><br />
+
+                <label asp-for="Surname">Surname</label>
+                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" /><br /><br />
+
+                <label asp-for="Address">Address</label>
+                <input asp-for="Address" type="text" name="Address" placeholder="Your Address" /><br /><br />
+
+                <label asp-for="Qualification">Qualification</label>
+                <input asp-for="Qualification" type="text" name="Qualification" placeholder="Your Qualifiaction" /><br /><br />
+
+                <label asp-for="ContactNo">Contact Number</label>
+                <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
+            
+
+                <button type="submit" value="submit">Update Details</button>
+            </form>
+        </div>
+    }
+
+</div>
+

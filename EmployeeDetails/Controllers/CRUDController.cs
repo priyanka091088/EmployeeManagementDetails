@@ -190,7 +190,7 @@ namespace EmployeeDetails.Controllers
             
         }
 
-        // GET: CRUDController/Delete/5
+        //Delete employee
         [Authorize(Roles = "Admin,HR")]
         public ActionResult Delete(int id)
         {
@@ -217,5 +217,42 @@ namespace EmployeeDetails.Controllers
                 return View();
             }
         }
+        [HttpGet]
+        [Authorize(Roles = "Employee")]
+        public IActionResult Profile()
+        {
+            if (User.IsInRole("Employee"))
+            {
+                var user = userManager.GetUserAsync(HttpContext.User).Result;
+                var employeesList = e.SelectAllEmployees().ToList();
+                var employee = employeesList.Find(x => x.Email == user.UserName);
+                var deptlist = _department.SelectAllDepartment();
+                employee.department = deptlist.FirstOrDefault(x => x.DepartId == employee.DepartId);
+                
+                return View(employee);
+            }
+            return View();
+        }
+
+        public ActionResult EditProfile(int id)
+        {
+            ViewBag.DepartName = _department.SelectAllDepartment();
+            Employee employee = e.GetEmployeeById(id);
+            return View(employee);
+        }
+
+        // POST: CRUDController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        
+        public ActionResult EditProfile(int id, Employee emp)
+        {
+
+            ViewBag.DepartName = _department.SelectAllDepartment();
+            e.UpdateEmployeeDetails(id, emp);
+            return RedirectToAction("Profile");
+
+        }
+
     }
 }
