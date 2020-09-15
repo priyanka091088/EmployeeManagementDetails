@@ -12,5 +12,6 @@ namespace EmployeeDetails.Models
         public void AddEmployee(Employee emp);
         public void UpdateEmployeeDetails(int id,Employee emp);
         public void DeleteOneEmployee(int id);
+        public void UpdateEmployeeProfile(int id, Employee emp);
     }
 }

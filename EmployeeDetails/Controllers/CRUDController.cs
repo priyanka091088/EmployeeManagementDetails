@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmployeeDetails.Hubs;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeDetails.Controllers
 {
@@ -15,19 +17,23 @@ namespace EmployeeDetails.Controllers
     {
         private readonly IEmployeeRepository e;
         private readonly IDepartmentRepository _department;
-        // GET: CRUDController
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly AppDbContext context;
+        private readonly IHubContext<NotificationHub> _notificationHubContext;
+
         public CRUDController(IEmployeeRepository emp,IDepartmentRepository dep, UserManager<IdentityUser> _userManager,
-                    RoleManager<IdentityRole> _roleManager,AppDbContext _context)
+                    RoleManager<IdentityRole> _roleManager,AppDbContext _context, IHubContext<NotificationHub> notificationHubContext)
         {
             e = emp;
             _department = dep;
             context = _context;
             userManager = _userManager;
             roleManager = _roleManager;
+            _notificationHubContext = notificationHubContext;
+
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
            
@@ -94,7 +100,9 @@ namespace EmployeeDetails.Controllers
                return View();
            
          }
-         
+
+        
+
         // GET: CRUDController/Details/5
         [Authorize(Roles ="Admin,HR,Employee")]
         public ActionResult Details()
@@ -141,7 +149,7 @@ namespace EmployeeDetails.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles ="Admin,HR")]
-        public async Task<IActionResult> Create(Employee emp)
+        public async Task<IActionResult> Create(Employee emp, Notification model)
         {
             ViewBag.DepartName = _department.SelectAllDepartment();
             if (ModelState.IsValid)
@@ -157,13 +165,15 @@ namespace EmployeeDetails.Controllers
                 {
                     await userManager.AddToRoleAsync(user, "Employee");
                      e.AddEmployee(emp);
-                     return RedirectToAction("Details");
+                    //await _notificationHubContext.Clients.All.SendAsync("sendToUser", "Admin", "Added a  New Employee");
+                    return RedirectToAction("Details");
                 }
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
             }
+            
             return View();
           
         }
@@ -249,7 +259,7 @@ namespace EmployeeDetails.Controllers
         {
 
             ViewBag.DepartName = _department.SelectAllDepartment();
-            e.UpdateEmployeeDetails(id, emp);
+            e.UpdateEmployeeProfile(id, emp);
             return RedirectToAction("Profile");
 
         }

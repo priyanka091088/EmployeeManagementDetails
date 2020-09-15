@@ -1,5 +1,6 @@
 ﻿@model EmployeeDetails.Models.Employee
 
+
 @{
     ViewData["Title"] = "Add Employee";
 }
@@ -10,11 +11,13 @@
     {
         <div>
             <form asp-action="Create" #form="ngForm">
+               
+
                 <label asp-for="Name">Name</label>
-                <input asp-for="Name" type="text" name="Name" placeholder="Your Name" maxlength="20" /><br /><br />
+                <input asp-for="Name" type="text" id="nameInput" name="Name" placeholder="Your Name" maxlength="20" /><br /><br />
 
                 <label asp-for="Surname">Surname</label>
-                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" maxlength="20" /><br /><br />
+                <input asp-for="Surname" type="text" id="surnameInput" name="Surname" placeholder="Your Surname" maxlength="20" /><br /><br />
 
                 <label asp-for="Address">Address</label>
                 <input asp-for="Address" type="text" name="Address" placeholder="Your Address" maxlength="100" /><br /><br />
@@ -31,7 +34,7 @@
 
                 <div class="form-group">
                     <label asp-for="DepartId" class="control-label"></label>
-                    <select asp-for="DepartId" name="DepartId" class="form-control">
+                    <select asp-for="DepartId" id="IdInput" name="DepartId" class="form-control">
                         @foreach (var item in @ViewBag.DepartName)
                         {
                             <option value="@item.DepartId">@item.DepartName</option>
@@ -42,7 +45,7 @@
 
                 <br /><br />
 
-                <button type="submit" value="submit">Add Employee</button>
+                <button type="submit" id="AddEmployee" value="submit">Add Employee</button>
             </form>
         </div>
     }

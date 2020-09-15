@@ -11,10 +11,10 @@
         <div>
             <form asp-action="Create">
                 <label asp-for="DepartName">Name</label>
-                <input asp-for="DepartName" type="text" name="DepartName" placeholder="Department Name" /><br /><br />
+                <input asp-for="DepartName" id="DepartNameInput" type="text" name="DepartName" placeholder="Department Name" /><br /><br />
 
 
-                <button type="submit" value="submit">Add Department</button>
+                <button type="submit" id="AddDepartmentButton" value="submit">Add Department</button>
             </form>
         </div>
     }

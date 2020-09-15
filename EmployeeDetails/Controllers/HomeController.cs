@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EmployeeDetails.Models;
+using EmployeeDetails.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace EmployeeDetails.Controllers
 {
@@ -13,22 +15,19 @@ namespace EmployeeDetails.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IEmployeeRepository employeeRepository;
-
+        
         public HomeController(IEmployeeRepository _employeeRepository)
         {
             employeeRepository = _employeeRepository;
+           
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        /*public ViewResult Details()
-        {
-            var model = employeeRepository.GetAll();
-            return (View(model));
-        }*/
+       
 
         public IActionResult Privacy()
         {

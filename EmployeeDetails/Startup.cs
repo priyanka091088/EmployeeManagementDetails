@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EmployeeDetails.Hubs;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -47,7 +48,9 @@ namespace EmployeeDetails
 
             services.AddScoped<IDepartmentRepository, MockDepartmentRepository>();
             services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
-           
+
+            services.AddSignalR();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,11 +74,19 @@ namespace EmployeeDetails
 
             app.UseAuthorization();
 
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<NotificationHub>("/NotificationHub");
+            });
+
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=CRUD}/{action=Index}/{id?}");
+
+                //endpoints.MapHub<NotificationHub>("/NotificationHub");
             });
         }
     }

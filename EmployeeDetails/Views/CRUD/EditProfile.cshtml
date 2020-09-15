@@ -11,10 +11,10 @@
         <div>
             <form asp-action="Edit">
                 <label asp-for="Name">Name</label>
-                <input asp-for="Name" type="text" name="Name" placeholder="Your Name" /><br /><br />
+                <input asp-for="Name" id="nameInput" type="text" name="Name" placeholder="Your Name" /><br /><br />
 
                 <label asp-for="Surname">Surname</label>
-                <input asp-for="Surname" type="text" name="Surname" placeholder="Your Surname" /><br /><br />
+                <input asp-for="Surname" id="SurnameInput" type="text" name="Surname" placeholder="Your Surname" /><br /><br />
 
                 <label asp-for="Address">Address</label>
                 <input asp-for="Address" type="text" name="Address" placeholder="Your Address" /><br /><br />
@@ -26,7 +26,7 @@
                 <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
             
 
-                <button type="submit" value="submit">Update Details</button>
+                <button type="submit" id="editProfileButton" value="submit">Update Details</button>
             </form>
         </div>
     }

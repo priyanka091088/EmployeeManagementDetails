@@ -16,7 +16,7 @@ namespace EmployeeDetails.Models
         }
         public DbSet<Employee> employee { get; set; }
         public DbSet<Department> department { get; set; }
-
        
+
     }
 }

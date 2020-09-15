@@ -51,6 +51,20 @@ namespace EmployeeDetails.Models
             _context.SaveChanges();
             
         }
+
+        public void UpdateEmployeeProfile(int id, Employee emp)
+        {
+            Employee e = _context.employee.Find(id);
+            e.Eid = id;
+            e.Name = emp.Name;
+            e.Surname = emp.Surname;
+            e.Address = emp.Address;
+            e.Qualification = emp.Qualification;
+            e.ContactNo = emp.ContactNo;
+            _context.employee.Update(e);
+            _context.SaveChanges();
+
+        }
         public void DeleteOneEmployee(int id)
         {
             var employee = _context.employee.Find(id);
