@@ -149,7 +149,7 @@ namespace EmployeeDetails.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles ="Admin,HR")]
-        public async Task<IActionResult> Create(Employee emp, Notification model)
+        public async Task<IActionResult> Create(Employee emp)
         {
             ViewBag.DepartName = _department.SelectAllDepartment();
             if (ModelState.IsValid)
@@ -165,7 +165,7 @@ namespace EmployeeDetails.Controllers
                 {
                     await userManager.AddToRoleAsync(user, "Employee");
                      e.AddEmployee(emp);
-                    //await _notificationHubContext.Clients.All.SendAsync("sendToUser", "Admin", "Added a  New Employee");
+                    
                     return RedirectToAction("Details");
                 }
                 foreach (var error in result.Errors)
