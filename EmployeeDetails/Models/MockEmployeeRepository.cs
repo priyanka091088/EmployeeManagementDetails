@@ -7,18 +7,21 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeDetails.Hubs;
 
 namespace EmployeeDetails.Models
 {
     public class MockEmployeeRepository :IEmployeeRepository
     {
         private readonly AppDbContext _context;
-        
-        public MockEmployeeRepository(AppDbContext context)
+        private readonly UserManager<IdentityUser> userManager;
+        private readonly IHubContext<NotificationHub> hubContext;
+        public MockEmployeeRepository(AppDbContext context,UserManager<IdentityUser> _userManager,IHubContext<NotificationHub> _hubContext) 
         {
             _context = context;
-            
-           
+            userManager = _userManager;
+            hubContext = _hubContext;
         }
         public List<Employee> SelectAllEmployees()
         {
@@ -35,6 +38,19 @@ namespace EmployeeDetails.Models
         {
             _context.employee.Add(employee);
             _context.SaveChanges();
+
+            foreach (var emp in SelectAllEmployees())
+            {
+
+
+                if (emp.DepartId == employee.DepartId)
+                {
+                    var user = userManager.FindByEmailAsync(emp.Email).Result;
+
+                    hubContext.Clients.User(user.Id).SendAsync("sendToUser", employee.Name,employee.Surname);
+                }
+            }
+
         }
         public void UpdateEmployeeDetails(int id,Employee emp)
         {

@@ -2,7 +2,6 @@
     .withUrl("/NotificationHub")
     .build();
 connection.on("sendToUser", (employeeName, employeeSurname) => {
-   
     var notify = employeeName + " " + employeeSurname + " Was Added"
     var li = document.createElement("li");
     li.textContent = notify;
@@ -39,8 +38,8 @@ if (document.getElementById("AddEmployee")) {
     document.getElementById("AddEmployee").addEventListener("click", function (event) {
         var Name = document.getElementById("nameInput").value;
         var Surname = document.getElementById("surnameInput").value;
-       
-        connection.invoke("SendMessage", Name, Surname).catch(function (err) {
+        var id = document.getElementById("IdInput").value;
+        connection.invoke("SendMessage", Name, Surname,id).catch(function (err) {
             return console.error(err.toString());
         });
     });
@@ -56,14 +55,7 @@ if (document.getElementById("editProfileButton")) {
     });
 }
 
-if (document.getElementById("AddDepartmentButton")) {
-    document.getElementById("AddDepartmentButton").addEventListener("click", function (event) {
-        var name = document.getElementById("DepartNameInput").value;
-        connection.invoke("AddDepartmentMessage", name).catch(function (err) {
-            return console.error(err.toString());
-        });
-    });
-}
+
 
 
 connection.onclose(async () => {
