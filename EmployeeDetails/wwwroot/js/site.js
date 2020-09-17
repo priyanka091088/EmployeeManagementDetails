@@ -1,11 +1,13 @@
-﻿const connection = new signalR.HubConnectionBuilder()
+﻿
+
+const connection = new signalR.HubConnectionBuilder()
     .withUrl("/NotificationHub")
     .build();
 connection.on("sendToUser", (employeeName, employeeSurname) => {
     var notify = employeeName + " " + employeeSurname + " Was Added"
     var li = document.createElement("li");
     li.textContent = notify;
-    var notifyMenu = document.getElementById("counter");
+    var notifyMenu = document.getElementById("NotificationMenu");
     notifyMenu.appendChild(li);
 });
 
@@ -14,7 +16,7 @@ connection.on("RecieveEditProfileMessage", (name,surname) => {
     var notify = name +" " + surname + " edited their profile."
     var li = document.createElement("li");
     li.textContent = notify;
-    var notifyMenu = document.getElementById("counter");
+    var notifyMenu = document.getElementById("NotificationMenu");
     notifyMenu.appendChild(li);
 });
 
