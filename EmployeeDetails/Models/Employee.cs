@@ -32,6 +32,10 @@ namespace EmployeeDetails.Models
         public int DepartId { get; set; }
         public Department department { get; set; }
 
-       // public List<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
+        public string userId { get; set; }//userTable
+
+        public string roleId { get; set; }//RoleTable
+
+        public List<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
     }
 }

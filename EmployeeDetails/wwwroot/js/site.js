@@ -1,6 +1,21 @@
-﻿
+﻿function getNotification() 
+{
+    $.ajax({
+        url: "/Notification/GetNotification",
+        method: "GET",
+        success: function (result) {
+            console.log(result);
+        },
+        error: function (error) {
+            console.log(error);
+        }
 
-const connection = new signalR.HubConnectionBuilder()
+    });
+
+}
+getNotification();
+
+/*const connection = new signalR.HubConnectionBuilder()
     .withUrl("/NotificationHub")
     .build();
 connection.on("sendToUser", (employeeName, employeeSurname) => {
@@ -62,4 +77,4 @@ if (document.getElementById("editProfileButton")) {
 
 connection.onclose(async () => {
     await start();
-});
+});*/

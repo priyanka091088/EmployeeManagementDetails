@@ -21,9 +21,11 @@ namespace EmployeeDetails.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly AppDbContext context;
         private readonly IHubContext<NotificationHub> _notificationHubContext;
+        private readonly INotificationRepository _notificationRepository;
 
         public CRUDController(IEmployeeRepository emp,IDepartmentRepository dep, UserManager<IdentityUser> _userManager,
-                    RoleManager<IdentityRole> _roleManager,AppDbContext _context, IHubContext<NotificationHub> notificationHubContext)
+                    RoleManager<IdentityRole> _roleManager,AppDbContext _context, IHubContext<NotificationHub> notificationHubContext,
+                    INotificationRepository notificationRepository)
         {
             e = emp;
             _department = dep;
@@ -31,6 +33,7 @@ namespace EmployeeDetails.Controllers
             userManager = _userManager;
             roleManager = _roleManager;
             _notificationHubContext = notificationHubContext;
+            _notificationRepository = notificationRepository;
 
         }
         [HttpGet]
@@ -165,7 +168,14 @@ namespace EmployeeDetails.Controllers
                 {
                     await userManager.AddToRoleAsync(user, "Employee");
                      e.AddEmployee(emp);
-                    
+                    var name = emp.Name;
+                    var surname = emp.Surname;
+                    var notification = new Notification
+                    {
+                        Text = $"Admin added a new employee named {name} {surname} "
+                    };
+                    _notificationRepository.AddEmployeeNotification(notification, emp.DepartId);
+
                     return RedirectToAction("Details");
                 }
                 foreach (var error in result.Errors)

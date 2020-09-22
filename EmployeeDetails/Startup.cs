@@ -45,9 +45,14 @@ namespace EmployeeDetails
             });
 
             services.AddControllersWithViews();
-
+            /*.AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            }); ;*/
             services.AddScoped<IDepartmentRepository, MockDepartmentRepository>();
             services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             services.AddSignalR();
 
