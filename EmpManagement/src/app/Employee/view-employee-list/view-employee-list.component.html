@@ -1,0 +1,55 @@
+<div class="container">
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand">{{pageTitle}}</a>
+    <ul class="navbar-nav">
+      <li style="float:right" class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/employee']">Back</a>
+      </li>
+
+    </ul>
+
+  </nav>
+
+  <div class="card-body">
+
+
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Address</th>
+            <th>Qualification</th>
+            <th>Contact Number</th>
+            <th>Department Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ed of employee">
+          <td>{{ed.Name}}</td>
+          <td>{{ed.Surname}}</td>
+          <td>{{ed.Address}}</td>
+          <td>{{ed.Qualification}}</td>
+          <td>{{ed.ContactNo}}</td>
+          <td>{{ed.Department.DepartName}}</td>
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/updateemployee',ed.Eid,'edit']">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="DeleteEmployee(ed.Eid)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <button class="btn btn-primary" [routerLink]="['/addemployee',0]">Add Employee</button>
+            </td>
+          </tr>
+        </tfoot>
+        </table>
+      </div>
+
+</div>

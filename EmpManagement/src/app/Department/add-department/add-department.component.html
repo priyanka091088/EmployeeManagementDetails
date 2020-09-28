@@ -1,0 +1,19 @@
+
+<h2>{{pageTitle}}</h2>
+<div>
+        <div>
+            <form #form="ngForm" autocomplete="off" ngNativeValidate >
+
+
+                <label>Department Name</label>
+                <input type="text" id="nameInput" name="DepartName" placeholder="Your Name" [(ngModel)]="depart.DepartName" maxlength="20" required/><br /><br />
+
+
+                <br /><br />
+
+                <button type="submit" class="btn btn-success btn-block" (click)="onSubmit(depart)" [disabled]="form.invalid">Save</button>
+            </form>
+        </div>
+
+</div>
+

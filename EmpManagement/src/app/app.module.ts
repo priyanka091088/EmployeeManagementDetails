@@ -1,18 +1,56 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+
 import { AppComponent } from './app.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { LoginPageComponent } from './Login/login-page/login-page.component';
+//Employee CRUD Components
+import { ViewEmployeeListComponent } from './Employee/view-employee-list/view-employee-list.component';
+import { UpdateEmployeeComponent } from './Employee/update-employee/update-employee.component';
+import { DeleteEmployeeComponent } from './Employee/delete-employee/delete-employee.component';
+import { AddEmployeeComponent } from './Employee/add-employee/add-employee.component';
+//Department CRUD Components
+import { AddDepartmentComponent } from './Department/add-department/add-department.component';
+import { DeleteDepartmentComponent } from './Department/delete-department/delete-department.component';
+import { UpdateDepartmentComponent } from './Department/update-department/update-department.component';
+import { ViewDepartmentListComponent } from './Department/view-department-list/view-department-list.component';
+import { HomeComponent } from './home/home.component';
+//Services
+import { EmployeeService } from './shared/employee.service';
+import { DepartmentService } from './shared/department.service';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    WelcomeComponent,
+    LoginPageComponent,
+    ViewEmployeeListComponent,
+    UpdateEmployeeComponent,
+    DeleteEmployeeComponent,
+    AddEmployeeComponent,
+    AddDepartmentComponent,
+    DeleteDepartmentComponent,
+    UpdateDepartmentComponent,
+    ViewDepartmentListComponent,
+    HomeComponent
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
+
   ],
-  providers: [],
+  providers: [
+    EmployeeService,
+    DepartmentService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

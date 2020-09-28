@@ -1,0 +1,46 @@
+<div class="container">
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand">{{pageTitle}}</a>
+    <ul class="navbar-nav">
+      <li style="float:right" class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/department']">Back</a>
+      </li>
+
+    </ul>
+
+  </nav>
+
+  <div class="card-body">
+
+
+    <div class="table-responsive">
+      <table class="table mb-0">
+        <thead>
+          <tr>
+            <th>Department Name</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ed of department">
+          <td>{{ed.DepartName}}</td>
+
+          <td>
+            <button class="btn btn-primary" [routerLink]="['/updatedepartment',ed.DepartId,'edit']">Edit</button>
+          </td>
+          <td>
+            <button class="btn btn-danger" (click)="deleteDepartment(ed.DepartId)">Delete</button>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td>
+              <button class="btn btn-primary" [routerLink]="['/adddepartment',0]">Add Department</button>
+            </td>
+          </tr>
+        </tfoot>
+        </table>
+      </div>
+
+</div>

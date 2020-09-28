@@ -1,0 +1,39 @@
+
+<h2>{{pageTitle}}</h2>
+<div>
+        <div>
+            <form #form="ngForm" autocomplete="off" ngNativeValidate >
+
+
+                <label>Name</label>
+                <input type="text" id="nameInput" name="Name" placeholder="Your Name" [(ngModel)]="employee.Name" maxlength="20" required/><br /><br />
+
+                <label>Surname</label>
+                <input type="text" id="surnameInput" name="Surname" placeholder="Your Surname" [(ngModel)]="employee.Surname" maxlength="20" required /><br /><br />
+
+                <label>Address</label>
+                <input type="text" id="addressInput" name="Address" placeholder="Your Address" [(ngModel)]="employee.Address" maxlength="100" required/><br /><br />
+
+                <label>Qualification</label>
+                <input type="text" id="qualificationInput" name="Qualification" placeholder="Your Qualifiaction" [(ngModel)]="employee.Qualification" required/><br /><br />
+
+                <label>Contact Number</label>
+                <input type="text" name="ContactNo" id="contactNoInput" placeholder="Your Contact Number" [(ngModel)]="employee.ContactNo" maxlength="10" required /><br /><br />
+
+
+                <div class="form-group">
+                    <label class="control-label"></label>
+                    <select name="Department" [(ngModel)]="employee.DepartId" class="form-control">
+                      <option [ngValue]="d.DepartId" *ngFor="let d of department">{{d.DepartName}}</option>
+                    </select>
+
+                </div>
+
+                <br /><br />
+
+                <button type="submit" class="btn btn-success btn-block" (click)="onSubmit(employee)" [disabled]="form.invalid">Save</button>
+            </form>
+        </div>
+
+</div>
+
