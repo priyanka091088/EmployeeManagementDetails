@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,12 +27,11 @@ namespace EmployeeDetails.Models
         public string Qualification { get; set; }
         [Required]
         public string ContactNo { get; set; }
-        
-       
-      
+        [ForeignKey("Department")]
         public int DepartId { get; set; }
-        public Department department { get; set; }
 
-       // public List<NotificationApplicationUser> NotificationApplicationUsers { get; set; }
+
+        public Department Department { get; set; }
+
     }
 }

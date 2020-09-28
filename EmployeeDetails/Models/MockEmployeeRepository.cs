@@ -25,7 +25,7 @@ namespace EmployeeDetails.Models
         }
         public List<Employee> SelectAllEmployees()
         {
-            var employee = _context.employee.Include(e => e.department);
+            var employee = _context.employee.Include(e => e.Department);
             return employee.ToList();
 
 

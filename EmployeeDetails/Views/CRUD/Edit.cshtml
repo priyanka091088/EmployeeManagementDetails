@@ -29,14 +29,14 @@
                 <input asp-for="ContactNo" type="text" name="ContactNo" placeholder="Your Contact Number" /><br /><br />
 
 
-                <label asp-for="department.DepartName" class="control-label"></label>
+                <label asp-for="Department.DepartName" class="control-label"></label>
                 <select asp-for="DepartId" class="form-control">
                     @foreach (var item in @ViewBag.DepartName)
                     {
                         <option value="@item.DepartId">@item.DepartName</option>
                     }
                 </select>
-                <span asp-validation-for="department.DepartName" class="text-danger"></span>
+                <span asp-validation-for="Department.DepartName" class="text-danger"></span>
 
                 <br /><br />
 

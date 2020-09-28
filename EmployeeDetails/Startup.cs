@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 
 namespace EmployeeDetails
 {
@@ -35,6 +36,15 @@ namespace EmployeeDetails
             services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("foo",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
+
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -44,7 +54,14 @@ namespace EmployeeDetails
                 options.AccessDeniedPath = new PathString("/Account/AccessDenied");
             });
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    var resolver = options.SerializerSettings.ContractResolver;
+                    if (resolver != null)
+                        (resolver as DefaultContractResolver).NamingStrategy = null;
+                    
+                });
 
             services.AddScoped<IDepartmentRepository, MockDepartmentRepository>();
             services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
@@ -68,6 +85,7 @@ namespace EmployeeDetails
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCors("foo");
             app.UseRouting();
            
             app.UseAuthentication();

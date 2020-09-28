@@ -4,14 +4,16 @@ using EmployeeDetails.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeDetails.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200926154755_changedname")]
+    partial class changedname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,6 +55,9 @@ namespace EmployeeDetails.Migrations
                     b.Property<int>("DepartId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("DepartmentDepartId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -73,7 +78,7 @@ namespace EmployeeDetails.Migrations
 
                     b.HasKey("Eid");
 
-                    b.HasIndex("DepartId");
+                    b.HasIndex("DepartmentDepartId");
 
                     b.ToTable("employee");
                 });
@@ -278,9 +283,7 @@ namespace EmployeeDetails.Migrations
                 {
                     b.HasOne("EmployeeDetails.Models.Department", "Department")
                         .WithMany()
-                        .HasForeignKey("DepartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentDepartId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

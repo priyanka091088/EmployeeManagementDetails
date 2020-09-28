@@ -205,7 +205,10 @@ C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\Account\ChangePasswordConfirmation.cshtml.g.cs
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\CRUD\Profile.cshtml.g.cs
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\Razor\Views\CRUD\EditProfile.cshtml.g.cs
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\EmployeeDetails.csproj.CoreCompileInputs.cache
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\EmployeeDetails.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\obj\Debug\netcoreapp3.1\EmployeeDetails.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Win10\source\repos\EmployeeDetails\EmployeeDetails\bin\Debug\netcoreapp3.1\libman.json

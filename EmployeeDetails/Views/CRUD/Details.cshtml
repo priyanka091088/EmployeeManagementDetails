@@ -26,7 +26,7 @@
                         @Html.DisplayNameFor(model => model.ContactNo)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.department)
+                        @Html.DisplayNameFor(model => model.Department)
                     </th>
                 </tr>
             </thead>
@@ -50,7 +50,7 @@
                         @Html.DisplayFor(modelItem => item.ContactNo)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.department.DepartName)
+                        @Html.DisplayFor(modelItem => item.Department.DepartName)
                     </td>
                     <td><a href="~/CRUD/Edit/@item.Eid" class="btn btn-primary">EDIT</a></td>
                     <td><a href="~/CRUD/Delete/@item.Eid" class="btn btn-danger">DELETE</a></td>

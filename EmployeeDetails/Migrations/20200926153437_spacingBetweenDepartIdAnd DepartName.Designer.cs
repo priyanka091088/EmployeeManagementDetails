@@ -4,14 +4,16 @@ using EmployeeDetails.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EmployeeDetails.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200926153437_spacingBetweenDepartIdAnd DepartName")]
+    partial class spacingBetweenDepartIdAndDepartName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,9 +73,12 @@ namespace EmployeeDetails.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
+                    b.Property<int?>("departmentDepartId")
+                        .HasColumnType("int");
+
                     b.HasKey("Eid");
 
-                    b.HasIndex("DepartId");
+                    b.HasIndex("departmentDepartId");
 
                     b.ToTable("employee");
                 });
@@ -276,11 +281,9 @@ namespace EmployeeDetails.Migrations
 
             modelBuilder.Entity("EmployeeDetails.Models.Employee", b =>
                 {
-                    b.HasOne("EmployeeDetails.Models.Department", "Department")
+                    b.HasOne("EmployeeDetails.Models.Department", "department")
                         .WithMany()
-                        .HasForeignKey("DepartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("departmentDepartId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

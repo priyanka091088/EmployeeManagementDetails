@@ -119,7 +119,7 @@ namespace EmployeeDetails.Controllers
                 var deptlist = _department.SelectAllDepartment();
                 foreach (var emp in emps)
                 {
-                    emp.department = deptlist.FirstOrDefault(x => x.DepartId == emp.DepartId);
+                    emp.Department = deptlist.FirstOrDefault(x => x.DepartId == emp.DepartId);
                 }
                 return View(emps);
             }
@@ -128,7 +128,7 @@ namespace EmployeeDetails.Controllers
             var _deptlist = _department.SelectAllDepartment();
                 foreach (var emp in employeeList)
                 {
-                    emp.department = _deptlist.FirstOrDefault(x => x.DepartId == emp.DepartId);
+                    emp.Department = _deptlist.FirstOrDefault(x => x.DepartId == emp.DepartId);
                 }
           
                return View("/Views/CRUD/Details.cshtml", employeeList);
@@ -237,7 +237,7 @@ namespace EmployeeDetails.Controllers
                 var employeesList = e.SelectAllEmployees().ToList();
                 var employee = employeesList.Find(x => x.Email == user.UserName);
                 var deptlist = _department.SelectAllDepartment();
-                employee.department = deptlist.FirstOrDefault(x => x.DepartId == employee.DepartId);
+                employee.Department = deptlist.FirstOrDefault(x => x.DepartId == employee.DepartId);
                 
                 return View(employee);
             }
