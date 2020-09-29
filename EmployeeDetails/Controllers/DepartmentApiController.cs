@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeDetails.Controllers
 {
@@ -24,6 +25,7 @@ namespace EmployeeDetails.Controllers
 
         // GET: api/DepartmentApi
         [HttpGet]
+        [Authorize(Roles ="Admin,HR")]
         public async Task<ActionResult<IEnumerable<Department>>> Getdepartment()
         {
             return await _context.department.ToListAsync();
@@ -47,6 +49,7 @@ namespace EmployeeDetails.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutDepartment(int id, Department department)
         {
             if (id != department.DepartId)
@@ -79,6 +82,7 @@ namespace EmployeeDetails.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Department>> PostDepartment(Department department)
         {
             _context.department.Add(department);
@@ -89,6 +93,7 @@ namespace EmployeeDetails.Controllers
 
         // DELETE: api/DepartmentApi/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Department>> DeleteDepartment(int id)
         {
             var emp = _context.employee.Where(e =>e.DepartId==id).ToList();

@@ -138,7 +138,7 @@ namespace EmployeeDetails.Controllers
         }
 
         // GET: CRUDController/Create
-       [Authorize(Roles ="Admin,HR")]
+       
         public ActionResult Create()
         {
             ViewBag.DepartName = _department.SelectAllDepartment();

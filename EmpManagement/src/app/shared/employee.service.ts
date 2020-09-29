@@ -27,15 +27,21 @@ export class EmployeeService {
   }
 
   addEmployee(employee:Employee){
-    return this.http.post(this.rooturl+'/Employee',employee);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.post(this.rooturl+'/Employee',employee, {headers});
    }
 
    deleteEmployee(id){
-    return this.http.delete(this.rooturl+'/Employee/'+id);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.delete(this.rooturl+'/Employee/'+id, {headers});
    }
 
    updateEmployee(employee:Employee){
-    return this.http.put(this.rooturl+'/Employee/'+employee.Eid,employee);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.put(this.rooturl+'/Employee/'+employee.Eid,employee,{headers});
    }
 
    getEmp(id: number): Observable<Employee> {

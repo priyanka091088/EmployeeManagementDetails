@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeDetails.Controllers
 {
@@ -16,10 +17,12 @@ namespace EmployeeDetails.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> userManager;
+        
         public EmployeeController(AppDbContext context, UserManager<IdentityUser> _userManager)
         {
             _context = context;
             userManager = _userManager;
+            
         }
 
         // GET: api/Employee
@@ -48,6 +51,7 @@ namespace EmployeeDetails.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> PutEmployee(int id, Employee employee)
         {
             if (id != employee.Eid)
@@ -80,8 +84,10 @@ namespace EmployeeDetails.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "Admin,HR")]
         public async Task<ActionResult<Employee>> PostEmployee(Employee employee)
         {
+            
             var userName = employee.Email;
             var email = employee.Email;
             var password = employee.Name.ToUpper() + employee.Surname + "@123";
@@ -90,6 +96,7 @@ namespace EmployeeDetails.Controllers
 
             if (result.Succeeded)
             {
+                await userManager.AddToRoleAsync(user, "Employee");
                 _context.employee.Add(employee);
                 await _context.SaveChangesAsync();
 
@@ -100,6 +107,7 @@ namespace EmployeeDetails.Controllers
 
         // DELETE: api/Employee/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,HR")]
         public async Task<ActionResult<Employee>> DeleteEmployee(int id)
         {
             var emp = _context.employee.Find(id);

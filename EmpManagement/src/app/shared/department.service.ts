@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, pipe, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Department } from './Department.model';
 
 @Injectable({
@@ -12,17 +12,11 @@ department:Department;
 readonly rooturl='https://localhost:44368/api';
   list:Department[];
   constructor(private http:HttpClient) { }
-  public initializeEmployee(): Department {
-    // Return an initialized object
-    return {
-    DepartId:0,
-    DepartName:''
-    }
-  }
-
 
   getDepartmentDetails():Observable<Department[]>{
-    return this.http.get<Department[]>(this.rooturl+'/DepartmentApi')
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.get<Department[]>(this.rooturl+'/DepartmentApi',{headers})
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
@@ -31,15 +25,21 @@ readonly rooturl='https://localhost:44368/api';
   }
 
   addDepartment(department:Department){
-    return this.http.post(this.rooturl+'/DepartmentApi',department);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.post(this.rooturl+'/DepartmentApi',department,{headers});
    }
 
    deleteDepartment(id){
-    return this.http.delete(this.rooturl+'/DepartmentApi/'+id);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.delete(this.rooturl+'/DepartmentApi/'+id,{headers});
    }
 
    updateDepartment(department:Department){
-    return this.http.put(this.rooturl+'/DepartmentApi/'+department.DepartId,department);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.put(this.rooturl+'/DepartmentApi/'+department.DepartId,department,{headers});
    }
 
    getDepart(id: number): Observable<Department> {

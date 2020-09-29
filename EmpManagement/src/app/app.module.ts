@@ -10,17 +10,16 @@ import { LoginPageComponent } from './Login/login-page/login-page.component';
 //Employee CRUD Components
 import { ViewEmployeeListComponent } from './Employee/view-employee-list/view-employee-list.component';
 import { UpdateEmployeeComponent } from './Employee/update-employee/update-employee.component';
-import { DeleteEmployeeComponent } from './Employee/delete-employee/delete-employee.component';
 import { AddEmployeeComponent } from './Employee/add-employee/add-employee.component';
 //Department CRUD Components
 import { AddDepartmentComponent } from './Department/add-department/add-department.component';
-import { DeleteDepartmentComponent } from './Department/delete-department/delete-department.component';
 import { UpdateDepartmentComponent } from './Department/update-department/update-department.component';
 import { ViewDepartmentListComponent } from './Department/view-department-list/view-department-list.component';
 import { HomeComponent } from './home/home.component';
 //Services
 import { EmployeeService } from './shared/employee.service';
 import { DepartmentService } from './shared/department.service';
+import { LoginService } from './shared/login.service';
 
 
 @NgModule({
@@ -30,10 +29,8 @@ import { DepartmentService } from './shared/department.service';
     LoginPageComponent,
     ViewEmployeeListComponent,
     UpdateEmployeeComponent,
-    DeleteEmployeeComponent,
     AddEmployeeComponent,
     AddDepartmentComponent,
-    DeleteDepartmentComponent,
     UpdateDepartmentComponent,
     ViewDepartmentListComponent,
     HomeComponent
@@ -49,7 +46,8 @@ import { DepartmentService } from './shared/department.service';
   ],
   providers: [
     EmployeeService,
-    DepartmentService
+    DepartmentService,
+    LoginService
   ],
   bootstrap: [AppComponent]
 })

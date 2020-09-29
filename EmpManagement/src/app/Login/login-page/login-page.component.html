@@ -1,8 +1,8 @@
 <form>
-  <label>User Name</label><br>
-  <input type="text" placeholder="user name"><br><br>
+  <label>Email</label><br>
+  <input type="text" placeholder="Email" name="Email" [(ngModel)]="LoginDetails.Email"><br><br>
   <label>Password</label><br>
-  <input type="password" placeholder="password"><br><br>
+  <input type="password" placeholder="password" name="Password" [(ngModel)]="LoginDetails.Password"><br><br>
 
-  <button class="btn btn-primary" [routerLink]="['/home']">Login</button>
+  <button class="btn btn-primary" (click)="Login()">Login</button>
 </form>
