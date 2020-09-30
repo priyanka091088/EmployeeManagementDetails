@@ -16,11 +16,12 @@ export class LoginPageComponent implements OnInit {
     Email:'',
     Password:''
   };
-
+public employeeEmail:string;
   ngOnInit(): void {
   }
 
   Login(){
+console.log(this.LoginDetails);
     this.loginService.UserLogin(this.LoginDetails)
   }
 }

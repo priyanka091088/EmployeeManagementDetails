@@ -26,12 +26,6 @@ Id:number;
     this.employee=this.initializeEmployees();
     this.depart=this.InitializeDepartment();
 
-   /* this.empService.getEmployees().subscribe({
-      next: employee => {
-        this.employeeList = employee;
-        this.employeeDetails = this.employeeList;
-      },
-     });*/
     this.departService.getDepartmentDetails().subscribe({
       next: department=>{
         this.department=department;
@@ -49,17 +43,6 @@ Id:number;
         console.log(err);
       }
     )
-
-    /*if(employee.Eid==0)
-    {
-      this.insertEmployee(employee);
-     //alert(employee.id);
-    }
-    /*else{
-      this.updateEmployee(employee);
-     // alert(employee.id);
-    }*/
-
   }
 
   insertEmployee(employee:Employee){

@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as jwt_decode from 'jwt-decode';
+import { decode } from 'punycode';
 import { Observable, of, pipe, throwError } from 'rxjs';
 import { catchError, tap, map } from 'rxjs/operators';
 
@@ -45,16 +47,38 @@ export class EmployeeService {
    }
 
    getEmp(id: number): Observable<Employee> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
     if (id === 0) {
       return of(this.initializeEmployee());
     }
     const url = `${this.rooturl+'/Employee'}/${id}`;
-    return this.http.get<Employee>(url)
+    return this.http.get<Employee>(url,{headers})
       .pipe(
         tap(data => console.log('getEmployee: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }
+  getEmpProfile(email: string): Observable<Employee> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    if (email === null) {
+      return of(this.initializeEmployee());
+    }
+    const url = `${this.rooturl+'/EmployeeProfile'}/${email}`;
+    return this.http.get<Employee>(url,{headers})
+      .pipe(
+        tap(data => console.log('getEmployee: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
+  UpdateEmployeeProfile(employee: Employee){
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.put(this.rooturl+'/EmployeeProfile/'+employee.Eid,employee,{headers});
+  }
+
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
@@ -71,17 +95,7 @@ export class EmployeeService {
     return throwError(errorMessage);
 
 }
-UpdateEmployee(employee: Employee): Observable<Employee> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  const url = `${this.rooturl+'/Employee'}/${employee.Eid}`;
-  return this.http.put<Employee>(url, employee, { headers })
-    .pipe(
-      tap(() => console.log('updateEmployee: ' + employee.Eid)),
-      // Return the product on an update
-      map(() => employee),
-      catchError(this.handleError)
-    );
-}
+
 
 public initializeEmployee(): Employee {
   // Return an initialized object

@@ -20,6 +20,8 @@ import { HomeComponent } from './home/home.component';
 import { EmployeeService } from './shared/employee.service';
 import { DepartmentService } from './shared/department.service';
 import { LoginService } from './shared/login.service';
+import { ViewProfileComponent } from './EmployeeProfile/view-profile/view-profile.component';
+import { EditProfileComponent } from './EmployeeProfile/edit-profile/edit-profile.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { LoginService } from './shared/login.service';
     AddDepartmentComponent,
     UpdateDepartmentComponent,
     ViewDepartmentListComponent,
-    HomeComponent
+    HomeComponent,
+    ViewProfileComponent,
+    EditProfileComponent,
 
 
   ],

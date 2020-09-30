@@ -12,7 +12,7 @@ import { EmployeeService } from 'src/app/shared/employee.service';
 })
 export class ViewEmployeeListComponent implements OnInit {
   public pageTitle:string="Employee List";
-
+emp:Employee;
   employeedetails:Employee[]=[];
   employee:Employee[];
   depart:Department;
@@ -23,7 +23,7 @@ export class ViewEmployeeListComponent implements OnInit {
   constructor(private service:EmployeeService,private depService:DepartmentService,private router:Router) { }
 
   ngOnInit(): void {
-
+this.emp=this.initializeEmployee();
     this.service.getEmployees().subscribe({
       next: employee => {
         this.employee = employee;
@@ -56,5 +56,19 @@ export class ViewEmployeeListComponent implements OnInit {
      });
 
    }
+   private initializeEmployee():Employee{
+    return{
+      Eid:0,
+      Name:'',
+      Surname:'',
+      Email:'',
+      Address:'',
+      Qualification:'',
+      ContactNo:'',
+      DepartId:0,
+
+    }
+
+  }
 
 }

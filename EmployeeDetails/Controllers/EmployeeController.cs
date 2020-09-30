@@ -27,6 +27,7 @@ namespace EmployeeDetails.Controllers
 
         // GET: api/Employee
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<Employee>>> Getemployee()
         {
             var appDbContext = _context.employee.Include(e => e.Department);
@@ -46,6 +47,7 @@ namespace EmployeeDetails.Controllers
 
             return employee;
         }
+
 
         // PUT: api/Employee/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

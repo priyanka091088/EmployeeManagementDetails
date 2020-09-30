@@ -22,6 +22,7 @@ export class UpdateEmployeeComponent implements OnInit {
   constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.initializeEmployees();
     const id=+this.route.snapshot.paramMap.get('id');
     this.getEmp(id);
     this.departService.getDepartmentDetails().subscribe({
@@ -68,5 +69,18 @@ onEmployeeRetrieved(employee: Employee): void {
 
     this.router.navigate(['/employee']);
    }
+   private initializeEmployees():Employee{
+    return{
+      Eid:0,
+      Name:'',
+      Surname:'',
+      Email:'',
+      Address:'',
+      Qualification:'',
+      ContactNo:'',
+      DepartId:0,
 
+    }
+
+  }
 }

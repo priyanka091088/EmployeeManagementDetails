@@ -1,0 +1,33 @@
+<div class="card">
+
+  <nav class="navbar navbar-expand navbar-light bg-light">
+    <a class="navbar-brand">{{pageTitle}}</a>
+    <ul class="navbar-nav">
+      <li style="float:right" class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/editprofile',employee.Eid,'edit']">Edit-profile</a>
+      </li>
+      <li style="float:right" class="nav-item" [routerLinkActive]="['link-active']">
+        <a class="nav-link" [routerLink]="['/home']">Back</a>
+      </li>
+
+    </ul>
+
+  </nav>
+  <div class="card-body">
+
+
+        <label>Name:</label><br>
+        <label>{{employee.Name}}</label><br><br>
+        <label>Surname:</label><br>
+        <label>{{employee.Surname}}</label><br><br>
+        <label>Address:</label><br>
+        <label>{{employee.Address}}</label><br><br>
+        <label>Email: </label><br>
+        <label>{{employee.Email}}</label><br><br>
+        <label>Qualification: </label><br>
+        <label>{{employee.Qualification}}</label><br><br>
+        <label>Contact Number: </label><br>
+        <label>{{employee.ContactNo}}</label><br><br>
+
+
+</div>

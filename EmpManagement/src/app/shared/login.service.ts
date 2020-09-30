@@ -1,15 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { pipe, throwError } from 'rxjs';
+import { Router,CanActivate,ActivatedRouteSnapshot } from '@angular/router';
+import { Observable, pipe, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Login } from './Login.model';
-
+import * as jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   readonly rooturl='https://localhost:44368/api/AuthenticateApi/login';
+  isLoggedIn:boolean=false;
 
   constructor(private http:HttpClient,private router:Router) { }
 
@@ -23,7 +24,7 @@ export class LoginService {
         console.log(next.token);
         localStorage.setItem('userToken',next.token)
         catchError(this.handleError),
-        this.router.navigate(['/home']);
+        this.router.navigate(['/home',login.Email]);
       });
 
 
