@@ -56,7 +56,7 @@ onSubmit(employee:Employee){
 }
 onSaveComplete(employee:Employee): void {
 
-  this.router.navigate(['/employee',employee.Email]);
+  this.router.navigate(['/employeeprofile',employee.Email]);
  }
  private initializeEmployees():Employee{
   return{

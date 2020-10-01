@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from 'src/app/shared/Department.model';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { Employee } from 'src/app/shared/Employee.model';
@@ -18,12 +18,14 @@ emp:Employee;
   depart:Department;
   department:Department[];
   departmentDetails:Department[]=[];
-  i:number=0;
-  Id:number;
-  constructor(private service:EmployeeService,private depService:DepartmentService,private router:Router) { }
+  employeeEmail:string;
+  constructor(private service:EmployeeService,private depService:DepartmentService,private router:Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-this.emp=this.initializeEmployee();
+
+    const email=this.route.snapshot.paramMap.get('email');
+    this.employeeEmail=email;
+    this.emp=this.initializeEmployee();
     this.service.getEmployees().subscribe({
       next: employee => {
         this.employee = employee;

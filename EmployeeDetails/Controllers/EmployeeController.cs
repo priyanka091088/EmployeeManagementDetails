@@ -27,11 +27,14 @@ namespace EmployeeDetails.Controllers
 
         // GET: api/Employee
         [HttpGet]
-        
+        [Authorize(Roles = "Admin,HR,Employee")]
         public async Task<ActionResult<IEnumerable<Employee>>> Getemployee()
         {
+           
             var appDbContext = _context.employee.Include(e => e.Department);
             return await appDbContext.ToListAsync();
+            
+           
         }
 
         // GET: api/Employee/5

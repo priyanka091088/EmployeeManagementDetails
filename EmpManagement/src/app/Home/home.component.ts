@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from '../shared/login.service';
 
 @Component({
   selector: 'app-home',
@@ -8,12 +9,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   employeeEmail:string;
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute,private loginService:LoginService) { }
 
   ngOnInit(): void {
     const email=this.route.snapshot.paramMap.get('email');
     this.employeeEmail=email;
     console.log(this.employeeEmail);
+  }
+  logout(){
+    this.loginService.logOut();
   }
 
 }

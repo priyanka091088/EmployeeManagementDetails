@@ -10,7 +10,7 @@ import * as jwt_decode from 'jwt-decode';
 })
 export class LoginService {
   readonly rooturl='https://localhost:44368/api/AuthenticateApi/login';
-  isLoggedIn:boolean=false;
+  //isLoggedIn:boolean=false;
 
   constructor(private http:HttpClient,private router:Router) { }
 
@@ -21,13 +21,28 @@ export class LoginService {
 
      this.http.post(this.rooturl,as, { headers:headers }).subscribe(
       (next:any)=>{
-        console.log(next.token);
+        //console.log(next.token);
         localStorage.setItem('userToken',next.token)
         catchError(this.handleError),
         this.router.navigate(['/home',login.Email]);
       });
+  }
 
+  isLoggedIn():boolean{
+    if(localStorage.getItem('userToken')){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
 
+  logOut(){
+    if(this.isLoggedIn){
+      localStorage.removeItem('userToken');
+      this.router.navigate(['/welcome']);
+
+    }
   }
 
   private handleError(err) {

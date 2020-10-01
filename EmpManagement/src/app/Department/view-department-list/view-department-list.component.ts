@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from 'src/app/shared/Department.model';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { Employee } from 'src/app/shared/Employee.model';
@@ -16,9 +16,12 @@ export class ViewDepartmentListComponent implements OnInit {
   department:Department[];
   employee:Employee[];
   employeeDetails:Employee[]=[];
-  constructor(private service:DepartmentService,private empService:EmployeeService,private router:Router) { }
+  employeeEmail:string;
+  constructor(private service:DepartmentService,private empService:EmployeeService,private router:Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const email=this.route.snapshot.paramMap.get('email');
+    this.employeeEmail=email;
     this.service.getDepartmentDetails().subscribe({
       next: depart => {
         this.department = depart;

@@ -20,7 +20,9 @@ export class EmployeeService {
 
 
   getEmployees():Observable<Employee[]>{
-    return this.http.get<Employee[]>(this.rooturl+'/Employee')
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+    'Authorization':'Bearer '+localStorage.getItem('userToken')});
+    return this.http.get<Employee[]>(this.rooturl+'/Employee', {headers})
       .pipe(
         tap(data => console.log(JSON.stringify(data))),
         catchError(this.handleError)
