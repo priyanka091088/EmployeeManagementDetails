@@ -5,27 +5,30 @@ import { Observable, pipe, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Login } from './Login.model';
 import * as jwt_decode from 'jwt-decode';
+import { ResetPassword } from './ResetPassword.model';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   readonly rooturl='https://localhost:44368/api/AuthenticateApi/login';
+  readonly url='https://localhost:44368/api/AuthenticateApi/ForgotPassword';
   //isLoggedIn:boolean=false;
 
   constructor(private http:HttpClient,private router:Router) { }
 
   UserLogin(login:Login): void{
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
-    'Authorization':'Bearer '+localStorage.getItem('userToken')});
-    const as=JSON.stringify(login);
 
-     this.http.post(this.rooturl,as, { headers:headers }).subscribe(
-      (next:any)=>{
-        //console.log(next.token);
-        localStorage.setItem('userToken',next.token)
-        catchError(this.handleError),
-        this.router.navigate(['/home',login.Email]);
-      });
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
+      'Authorization':'Bearer '+localStorage.getItem('userToken')});
+      const as=JSON.stringify(login);
+
+       this.http.post(this.rooturl,as, { headers:headers }).subscribe(
+        (next:any)=>{
+          //console.log(next.token);
+          localStorage.setItem('userToken',next.token)
+          catchError(this.handleError),
+          this.router.navigate(['/home',login.Email]);
+        });
   }
 
   isLoggedIn():boolean{
@@ -44,7 +47,10 @@ export class LoginService {
 
     }
   }
+  ResetPassword(resetpassword:ResetPassword){
+    return this.http.post(this.url,resetpassword);
 
+  }
   private handleError(err) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console

@@ -22,6 +22,7 @@ import { DepartmentService } from './shared/department.service';
 import { LoginService } from './shared/login.service';
 import { ViewProfileComponent } from './EmployeeProfile/view-profile/view-profile.component';
 import { EditProfileComponent } from './EmployeeProfile/edit-profile/edit-profile.component';
+import { ResetPasswordComponent } from './Login/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { EditProfileComponent } from './EmployeeProfile/edit-profile/edit-profil
     HomeComponent,
     ViewProfileComponent,
     EditProfileComponent,
+    ResetPasswordComponent,
 
 
   ],

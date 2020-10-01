@@ -21,6 +21,7 @@ namespace EmployeeDetails.Controllers
         private readonly UserManager<IdentityUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
+       
 
         public AuthenticateApiController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
@@ -67,8 +68,26 @@ namespace EmployeeDetails.Controllers
             }
             return Unauthorized();
         }
+        [HttpPost]
+        [Route("ForgotPassword")]
+        public async Task<IActionResult> ForgotPassword(ResetPasswordViewModel employee)
+        {
+            if (employee.Email != null)
+            {
+                var user = await userManager.FindByEmailAsync(employee.Email);
+                var token = await userManager.GeneratePasswordResetTokenAsync(user);
+                var passwordResetStatus = await userManager.ResetPasswordAsync(user, token, employee.Password);
+                if (passwordResetStatus.Succeeded)
+                {
+                    return Ok();
+                }
+            }
 
-    }
+            return BadRequest(new { message = "Username or password is incorrect." });
+
+        }
+
+        }
 
 }
 

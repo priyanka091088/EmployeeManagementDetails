@@ -10,12 +10,14 @@ import { EditProfileComponent } from './EmployeeProfile/edit-profile/edit-profil
 import { ViewProfileComponent } from './EmployeeProfile/view-profile/view-profile.component';
 import { HomeComponent } from './home/home.component';
 import { LoginPageComponent } from './Login/login-page/login-page.component';
+import { ResetPasswordComponent } from './Login/reset-password/reset-password.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 
 const routes: Routes = [
   {path: 'welcome', component: WelcomeComponent},
   {path:'login', component: LoginPageComponent},
+  {path:'resetpassword', component: ResetPasswordComponent},
   {path:'home/:email', component: HomeComponent},
   {path:'department/:email', component: ViewDepartmentListComponent},
   {path:'employee/:email', component: ViewEmployeeListComponent},
@@ -25,6 +27,7 @@ const routes: Routes = [
   {path:'updatedepartment/:id/edit', component: UpdateDepartmentComponent},
   {path:'employeeprofile/:email', component:ViewProfileComponent},
   {path:'editprofile/:id/edit', component: EditProfileComponent},
+
   { path: '', redirectTo: 'welcome', pathMatch: 'full' },
 ];
 

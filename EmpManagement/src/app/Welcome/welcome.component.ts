@@ -10,6 +10,13 @@ export class WelcomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
+    if(localStorage.getItem('userToken')){
+      console.log("true");
+    }
+    else{
+      console.log("false");
+    }
   }
 
 }
