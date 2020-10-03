@@ -12,7 +12,7 @@ export class ViewProfileComponent implements OnInit {
   errorMessage:string;
   pageTitle:string = 'Profile';
   employee:Employee;
-
+  employeeEmail=localStorage.getItem('userName');
   constructor(private empService:EmployeeService,private route: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {

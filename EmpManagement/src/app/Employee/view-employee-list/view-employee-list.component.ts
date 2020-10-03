@@ -18,17 +18,22 @@ emp:Employee;
   depart:Department;
   department:Department[];
   departmentDetails:Department[]=[];
-  employeeEmail:string;
+
+  employeeEmail=localStorage.getItem('userName');
   constructor(private service:EmployeeService,private depService:DepartmentService,private router:Router,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-
-    const email=this.route.snapshot.paramMap.get('email');
-    this.employeeEmail=email;
     this.emp=this.initializeEmployee();
+
     this.service.getEmployees().subscribe({
       next: employee => {
         this.employee = employee;
+        if(localStorage.getItem('userRole')=="Employee"){
+          this.emp=this.employee.find(e=>e.Email==this.employeeEmail);
+          this.employee=employee.filter(e=>e.DepartId==this.emp.DepartId);
+          this.employeedetails=this.employee;
+
+        }
         this.employeedetails = this.employee;
       },
      });

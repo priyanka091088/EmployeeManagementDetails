@@ -15,6 +15,7 @@ export class UpdateDepartmentComponent implements OnInit {
   department:Department[];
   departmentDetails:Department[]=[];
   errorMessage:string;
+  empEmail=localStorage.getItem('userName');
   constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -61,7 +62,7 @@ onSubmit(department:Department){
 }
 onSaveComplete(): void {
 
-  this.router.navigate(['/department']);
+  this.router.navigate(['/department',this.empEmail]);
  }
 
 

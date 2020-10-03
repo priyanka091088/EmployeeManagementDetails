@@ -19,6 +19,7 @@ export class UpdateEmployeeComponent implements OnInit {
   department:Department[];
   departmentDetails:Department[]=[];
   errorMessage:string;
+  empEmail=localStorage.getItem('userName');
   constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,private route:ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ onEmployeeRetrieved(employee: Employee): void {
   }
   onSaveComplete(): void {
 
-    this.router.navigate(['/employee']);
+    this.router.navigate(['/employee',this.empEmail]);
    }
    private initializeEmployees():Employee{
     return{

@@ -13,7 +13,7 @@ export class AddDepartmentComponent implements OnInit {
   depart:Department;
 department:Department[];
 departmentDetails:Department[]=[];
-
+empEmail=localStorage.getItem('userName');
   constructor(private departService:DepartmentService,private router:Router) { }
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ departmentDetails:Department[]=[];
   }
   onSaveComplete(): void {
 
-    this.router.navigate(['/department']);
+    this.router.navigate(['/department',this.empEmail]);
    }
   private InitializeDepartment():Department{
     return{

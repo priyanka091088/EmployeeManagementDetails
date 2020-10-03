@@ -23,6 +23,7 @@ import { LoginService } from './shared/login.service';
 import { ViewProfileComponent } from './EmployeeProfile/view-profile/view-profile.component';
 import { EditProfileComponent } from './EmployeeProfile/edit-profile/edit-profile.component';
 import { ResetPasswordComponent } from './Login/reset-password/reset-password.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -47,8 +48,8 @@ import { ResetPasswordComponent } from './Login/reset-password/reset-password.co
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
-
+    FormsModule,
+    ChartsModule
   ],
   providers: [
     EmployeeService,

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeDetails.Hubs;
 
 namespace EmployeeDetails.Controllers
 {
@@ -17,12 +19,14 @@ namespace EmployeeDetails.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> userManager;
-        
-        public EmployeeController(AppDbContext context, UserManager<IdentityUser> _userManager)
+        private readonly IHubContext<NotificationHub> hubContext;
+
+        public EmployeeController(AppDbContext context, UserManager<IdentityUser> _userManager, IHubContext<NotificationHub> _hubContext)
         {
             _context = context;
             userManager = _userManager;
-            
+            hubContext = _hubContext;
+
         }
 
         // GET: api/Employee
@@ -30,7 +34,7 @@ namespace EmployeeDetails.Controllers
         [Authorize(Roles = "Admin,HR,Employee")]
         public async Task<ActionResult<IEnumerable<Employee>>> Getemployee()
         {
-           
+            
             var appDbContext = _context.employee.Include(e => e.Department);
             return await appDbContext.ToListAsync();
             
@@ -105,6 +109,18 @@ namespace EmployeeDetails.Controllers
                 _context.employee.Add(employee);
                 await _context.SaveChangesAsync();
 
+                /*foreach (var emp in SelectAllEmployees())
+                {
+
+
+                    if (emp.DepartId == employee.DepartId)
+                    {
+                        var users = userManager.FindByEmailAsync(emp.Email).Result;
+
+                        await hubContext.Clients.User(users.Id).SendAsync("sendToUser", employee.Name, employee.Surname);
+                    }
+                }*/
+
             }
 
             return CreatedAtAction("GetEmployee", new { id = employee.Eid }, employee);
@@ -134,5 +150,11 @@ namespace EmployeeDetails.Controllers
         {
             return _context.employee.Any(e => e.Eid == id);
         }
-     }
+
+        public List<Employee> SelectAllEmployees()
+        {
+            var employee = _context.employee.Include(e => e.Department);
+            return employee.ToList();
+        }
+    }
 }

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -5,6 +6,7 @@ import { Department } from 'src/app/shared/Department.model';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { Employee } from 'src/app/shared/Employee.model';
 import { EmployeeService } from 'src/app/shared/employee.service';
+import { SignalRService } from 'src/app/shared/signal-r.service';
 
 @Component({
   selector: 'app-add-employee',
@@ -20,7 +22,9 @@ depart:Department;
 department:Department[];
 departmentDetails:Department[]=[];
 Id:number;
-  constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router) { }
+ empEmail=localStorage.getItem('userName');
+  constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,
+    private signalrService:SignalRService,private http:HttpClient) { }
 
   ngOnInit(): void {
     this.employee=this.initializeEmployees();
@@ -38,18 +42,9 @@ Id:number;
       res =>{
         alert(`employee successfully added`);
         this.onSaveComplete();
-      },
-      err=>{
-        console.log(err);
-      }
-    )
-  }
-
-  insertEmployee(employee:Employee){
-    this.empService.addEmployee(employee).subscribe(
-      res =>{
-        alert(`employee successfully added`);
-        this.onSaveComplete();
+        /*this.signalrService.startConnection();
+        this.signalrService.addEmployeeSendNotification(employee);
+        this.startHttpRequest();*/
       },
       err=>{
         console.log(err);
@@ -59,7 +54,7 @@ Id:number;
 
   onSaveComplete(): void {
 
-    this.router.navigate(['/employee']);
+    this.router.navigate(['/employee',this.empEmail]);
    }
 
   private initializeEmployees():Employee{
@@ -82,5 +77,10 @@ Id:number;
       DepartName:''
     }
   }
-
+  private startHttpRequest = () => {
+    this.http.get('https://localhost:44368/api/Employee')
+      .subscribe(res => {
+        console.log(res);
+      })
+    }
 }

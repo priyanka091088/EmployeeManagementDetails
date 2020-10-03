@@ -26,6 +26,18 @@ export class LoginService {
         (next:any)=>{
           //console.log(next.token);
           localStorage.setItem('userToken',next.token)
+
+          let token=localStorage.getItem('userToken');
+          let jwtData=token.split('.')[1]
+          let decodedJwtJsonData=window.atob(jwtData);
+          let decodedJwtData=JSON.parse(decodedJwtJsonData);
+          let roleName=decodedJwtData.role;
+          localStorage.setItem('userRole',roleName);
+          localStorage.setItem('userName',decodedJwtData.name);
+
+          console.log("isrole: "+roleName);
+          console.log("name: "+decodedJwtData.name);
+
           catchError(this.handleError),
           this.router.navigate(['/home',login.Email]);
         });
