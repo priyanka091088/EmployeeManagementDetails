@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+import * as signalR from '@aspnet/signalr';
 import { Department } from 'src/app/shared/Department.model';
 import { DepartmentService } from 'src/app/shared/department.service';
 import { Employee } from 'src/app/shared/Employee.model';
@@ -27,6 +28,7 @@ Id:number;
     private signalrService:SignalRService,private http:HttpClient) { }
 
   ngOnInit(): void {
+
     this.employee=this.initializeEmployees();
     this.depart=this.InitializeDepartment();
 
@@ -41,10 +43,12 @@ Id:number;
     this.empService.addEmployee(employee).subscribe(
       res =>{
         alert(`employee successfully added`);
+
+
+       /* this.signalrService.createConnection();
+        this.signalrService.startConnection();
+        this.signalrService.addEmployeeSendNotification(employee);*/
         this.onSaveComplete();
-        /*this.signalrService.startConnection();
-        this.signalrService.addEmployeeSendNotification(employee);
-        this.startHttpRequest();*/
       },
       err=>{
         console.log(err);

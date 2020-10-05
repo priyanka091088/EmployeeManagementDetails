@@ -25,7 +25,13 @@ namespace EmployeeDetails.Controllers
             userManager = _userManager;
         }
 
-        public void AddEmployee(Employee employee)
+        public async Task<IActionResult> Get(string message)
+        {
+            await hubContext.Clients.User("0fb3a538-6817-4d19-97f0-5f89da6b9a9c").SendAsync("departAddNotify", message);
+            return Ok(new { Message = "Request Completed" });
+        }
+
+        /*public void AddEmployee(Employee employee)
         {
             _context.employee.Add(employee);
             _context.SaveChanges();
@@ -42,7 +48,7 @@ namespace EmployeeDetails.Controllers
                 }
             }
 
-        }
+        }*/
 
         public List<Employee> SelectAllEmployees()
         {

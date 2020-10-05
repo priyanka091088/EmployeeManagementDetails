@@ -1,5 +1,8 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
+import { HubConnectionBuilder } from '@aspnet/signalr';
+import { Observable } from 'rxjs';
+import { Department } from './Department.model';
 import { Employee } from './Employee.model';
 
 @Injectable({
@@ -8,23 +11,48 @@ import { Employee } from './Employee.model';
 export class SignalRService {
   private hubConnection: signalR.HubConnection
   emp:string;
-  constructor() { }
+
+  //messageReceived = new EventEmitter<Message>();
+  connectionEstablished = new EventEmitter<Boolean>();
+
+  private connectionIsEstablished = false;
+  constructor() {
+    this.createConnection();
+    //this.registerOnServerEvents();
+    this.startConnection();
+   }
+
+   public createConnection() {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl('https://localhost:44368/NotificationHub')
+      .build();
+
+      //this.hubConnection.serverTimeoutInMilliseconds = 10000;
+  }
 
   public startConnection = () => {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-                            .withUrl('https://localhost:44368/api/Employee')
-                            .build();
     this.hubConnection
       .start()
-      .then(() => console.log('Connection started'))
+      .then(() =>{
+        this.connectionIsEstablished = true;
+        console.log('Hub connection started');
+
+      })
       .catch(err => console.log('Error while starting connection: ' + err))
   }
-
-  public addEmployeeSendNotification = (employee:Employee) => {
-    this.hubConnection.on('transferchartdata', (data) => {
-     // this.data = data;
-      console.log("hello");
-    });
+  addEmployeeSendNotification(employee: Employee){
+    return this.hubConnection.invoke('sendToUser', employee.Name,employee.Surname)
   }
 
+  addDepartSendNotification(department:Department){
+    return this.hubConnection.on('departAddNotify',(message:string) => {
+      console.log("admin added new department");
+    });
+
+  }
+  /*private registerOnServerEvents(): void {
+    this.hubConnection.on('MessageReceived', (data: any) => {
+      this.messageReceived.emit(data);
+    });
+  }  */
 }

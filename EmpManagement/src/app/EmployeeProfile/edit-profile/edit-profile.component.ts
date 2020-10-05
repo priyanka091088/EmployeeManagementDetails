@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import * as signalR from '@aspnet/signalr';
 import { Employee } from 'src/app/shared/Employee.model';
 import { EmployeeService } from 'src/app/shared/employee.service';
 

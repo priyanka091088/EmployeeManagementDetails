@@ -11,19 +11,19 @@ namespace EmployeeDetails.Hubs
     public class NotificationHub:Hub
     {
        
-        public async Task EditProfileMessage(string name,string surname)
+       /* public async Task EditProfileMessage(string name,string surname)
         {
            
             var group1 = "Admin";
             var group2 = "HR";
             await Clients.Groups(group1, group2).SendAsync("RecieveEditProfileMessage", name ,surname);
-        }
+        }*/
 
-        public async Task AddDepartmentMessage(string name)
+        public async Task AddDepartmentMessage(string message)
         {
             
             var group = "HR";
-            await Clients.Group(group).SendAsync("RecieveAddDepartMessage", name);
+            await Clients.Group(group).SendAsync("departAddNotify", message);
         }
 
         public override async Task OnConnectedAsync()

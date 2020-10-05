@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeDetails.Hubs;
 
 namespace EmployeeDetails.Controllers
 {
@@ -15,10 +17,12 @@ namespace EmployeeDetails.Controllers
     public class EmployeeProfileController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IHubContext<NotificationHub> hubContext;
 
-        public EmployeeProfileController(AppDbContext context)
+        public EmployeeProfileController(AppDbContext context,IHubContext<NotificationHub> _hubContext)
         {
             _context = context;
+            hubContext = _hubContext;
         }
 
         // GET: api/Employee/abc@gmail.com
@@ -53,6 +57,7 @@ namespace EmployeeDetails.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                await hubContext.Clients.All.SendAsync("ProfileEditNotify", "Employee edited their profile");
             }
             catch (DbUpdateConcurrencyException)
             {

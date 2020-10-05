@@ -109,21 +109,11 @@ namespace EmployeeDetails.Controllers
                 _context.employee.Add(employee);
                 await _context.SaveChangesAsync();
 
-                /*foreach (var emp in SelectAllEmployees())
-                {
-
-
-                    if (emp.DepartId == employee.DepartId)
-                    {
-                        var users = userManager.FindByEmailAsync(emp.Email).Result;
-
-                        await hubContext.Clients.User(users.Id).SendAsync("sendToUser", employee.Name, employee.Surname);
-                    }
-                }*/
-
+                await hubContext.Clients.All.SendAsync("employeeAddNotify", "Employee added by admin");
             }
 
             return CreatedAtAction("GetEmployee", new { id = employee.Eid }, employee);
+
         }
 
         // DELETE: api/Employee/5

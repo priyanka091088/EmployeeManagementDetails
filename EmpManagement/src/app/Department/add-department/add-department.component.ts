@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Department } from 'src/app/shared/Department.model';
 import { DepartmentService } from 'src/app/shared/department.service';
+import { SignalRService } from 'src/app/shared/signal-r.service';
+import * as signalR from "@aspnet/signalr";
 
 @Component({
   selector: 'app-add-department',
@@ -14,9 +16,11 @@ export class AddDepartmentComponent implements OnInit {
 department:Department[];
 departmentDetails:Department[]=[];
 empEmail=localStorage.getItem('userName');
+
   constructor(private departService:DepartmentService,private router:Router) { }
 
   ngOnInit(): void {
+
     this.depart=this.InitializeDepartment();
 
     this.departService.getDepartmentDetails().subscribe({
@@ -27,11 +31,14 @@ empEmail=localStorage.getItem('userName');
     })
   }
   onSubmit(department:Department){
+
+
+    //this.signalrService.addDepartSendNotification(department);
     this.departService.addDepartment(department).subscribe(
       res =>{
         alert(`Department successfully added`);
         this.onSaveComplete();
-      },
+         },
       err=>{
         console.log(err);
       }

@@ -41,7 +41,7 @@ namespace EmployeeDetails
                 options.AddPolicy("foo",
                     builder =>
                     {
-                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                        builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                     });
             });
             /*services.AddCors(options => 

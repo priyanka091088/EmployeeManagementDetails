@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using EmployeeDetails.Hubs;
 
 namespace EmployeeDetails.Controllers
 {
@@ -17,10 +19,12 @@ namespace EmployeeDetails.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> userManager;
-        public DepartmentApiController(AppDbContext context, UserManager<IdentityUser> _userManagert)
+        private readonly IHubContext<NotificationHub> hubContext;
+        public DepartmentApiController(AppDbContext context, UserManager<IdentityUser> _userManagert, IHubContext<NotificationHub> _hubContext)
         {
             _context = context;
             userManager = _userManagert;
+            hubContext = _hubContext;
         }
 
         // GET: api/DepartmentApi
@@ -88,6 +92,8 @@ namespace EmployeeDetails.Controllers
             _context.department.Add(department);
             await _context.SaveChangesAsync();
 
+            await hubContext.Clients.All.SendAsync("departAddNotify", "department added by admin");
+
             return CreatedAtAction("GetDepartment", new { id = department.DepartId }, department);
         }
 
@@ -119,5 +125,7 @@ namespace EmployeeDetails.Controllers
         {
             return _context.department.Any(e => e.DepartId == id);
         }
+
+       
     }
 }
