@@ -33,8 +33,8 @@ namespace EmployeeDetails.Hubs
             {
                 string dept = _context.employee.Include(e => e.Department).Where(e => e.Email == this.Context.User.Identity.Name).
                     First().Department.DepartName;
-                var grpName = "Employee" + dept;
-                await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "Employee");
+                var groupName = "Employee" + dept;
+                await this.Groups.AddToGroupAsync(this.Context.ConnectionId, groupName);
             }
             await base.OnConnectedAsync();
         }
