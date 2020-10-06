@@ -66,7 +66,7 @@ namespace EmployeeDetails
             services.AddScoped<IDepartmentRepository, MockDepartmentRepository>();
             services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 
-            //services.AddSignalR();
+           
 
             // Adding Authentication  
             services.AddAuthentication(options =>

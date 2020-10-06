@@ -109,7 +109,11 @@ namespace EmployeeDetails.Controllers
                 _context.employee.Add(employee);
                 await _context.SaveChangesAsync();
 
-                await hubContext.Clients.All.SendAsync("employeeAddNotify", "Employee added by admin");
+                var dept = _context.department.Where(d => d.DepartId == employee.DepartId).First().DepartName;
+                var groupName = "Employee" + dept;
+                await hubContext.Clients.Group(groupName).SendAsync("employeeAddNotify", "Employee added by admin");
+
+                //await hubContext.Clients.All.SendAsync("employeeAddNotify", "Employee added by admin");
             }
 
             return CreatedAtAction("GetEmployee", new { id = employee.Eid }, employee);

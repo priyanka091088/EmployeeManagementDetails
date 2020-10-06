@@ -59,7 +59,7 @@ namespace EmployeeDetails.Controllers
                 await _context.SaveChangesAsync();
                 var groupName = "Admin";
                 await hubContext.Clients.Group(groupName).SendAsync("ProfileEditNotify", "Employee edited their profile");
-                //await hubContext.Clients.All.SendAsync("ProfileEditNotify", "Employee edited their profile");
+                
             }
             catch (DbUpdateConcurrencyException)
             {

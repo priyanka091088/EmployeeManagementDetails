@@ -1,6 +1,7 @@
 ﻿using EmployeeDetails.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,14 +19,6 @@ namespace EmployeeDetails.Hubs
             userManager = _userManager;
         }
        
-       /* public async Task EditProfileMessage(string name,string surname)
-        {
-           
-            var group1 = "Admin";
-            var group2 = "HR";
-            await Clients.Groups(group1, group2).SendAsync("RecieveEditProfileMessage", name ,surname);
-        }*/
-
         public override async Task OnConnectedAsync()
         {
             if (this.Context.User.IsInRole("Admin"))
@@ -38,6 +31,9 @@ namespace EmployeeDetails.Hubs
             }
             else if (this.Context.User.IsInRole("Employee"))
             {
+                string dept = _context.employee.Include(e => e.Department).Where(e => e.Email == this.Context.User.Identity.Name).
+                    First().Department.DepartName;
+                var grpName = "Employee" + dept;
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, "Employee");
             }
             await base.OnConnectedAsync();
