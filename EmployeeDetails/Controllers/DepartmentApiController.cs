@@ -91,8 +91,11 @@ namespace EmployeeDetails.Controllers
         {
             _context.department.Add(department);
             await _context.SaveChangesAsync();
+            
+            var group = "HR";
+            await hubContext.Clients.Group(group).SendAsync("departAddNotify", "New department added by admin");
 
-            await hubContext.Clients.All.SendAsync("departAddNotify", "department added by admin");
+            //await hubContext.Clients.All.SendAsync("departAddNotify", "department added by admin");
 
             return CreatedAtAction("GetDepartment", new { id = department.DepartId }, department);
         }

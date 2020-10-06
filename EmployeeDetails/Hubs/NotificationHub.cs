@@ -10,6 +10,13 @@ namespace EmployeeDetails.Hubs
 {
     public class NotificationHub:Hub
     {
+        private readonly AppDbContext _context;
+        private readonly UserManager<IdentityUser> userManager;
+        public NotificationHub(AppDbContext context,UserManager<IdentityUser> _userManager)
+        {
+            _context = context;
+            userManager = _userManager;
+        }
        
        /* public async Task EditProfileMessage(string name,string surname)
         {
@@ -18,13 +25,6 @@ namespace EmployeeDetails.Hubs
             var group2 = "HR";
             await Clients.Groups(group1, group2).SendAsync("RecieveEditProfileMessage", name ,surname);
         }*/
-
-        public async Task AddDepartmentMessage(string message)
-        {
-            
-            var group = "HR";
-            await Clients.Group(group).SendAsync("departAddNotify", message);
-        }
 
         public override async Task OnConnectedAsync()
         {

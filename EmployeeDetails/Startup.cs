@@ -44,14 +44,7 @@ namespace EmployeeDetails
                         builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                     });
             });
-            /*services.AddCors(options => 
-    { 
-        options.AddPolicy("CorsPolicy", builder => builder
-        .WithOrigins("http://localhost:4200")
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials()); 
-    });*/
+           
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
@@ -73,7 +66,7 @@ namespace EmployeeDetails
             services.AddScoped<IDepartmentRepository, MockDepartmentRepository>();
             services.AddScoped<IEmployeeRepository, MockEmployeeRepository>();
 
-            services.AddSignalR();
+            //services.AddSignalR();
 
             // Adding Authentication  
             services.AddAuthentication(options =>
@@ -96,9 +89,30 @@ namespace EmployeeDetails
                     ValidIssuer = Configuration["JWT:ValidIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWT:Secret"]))
                 };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var accessToken = context.Request.Query["access_token"];
+
+                        // If the request is for our hub...
+                        var path = context.HttpContext.Request.Path;
+                        if (!string.IsNullOrEmpty(accessToken) &&
+                            (path.StartsWithSegments("/NotificationHub")))
+                        {
+                            // Read the token out of the query string
+                            context.Token = accessToken;
+                        }
+                        return Task.CompletedTask;
+                    }
+                };
             });
 
-
+            services.AddSignalR(options =>
+            {
+                options.EnableDetailedErrors = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
