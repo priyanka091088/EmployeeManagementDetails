@@ -16,31 +16,13 @@ export class LoginService {
 
   constructor(private http:HttpClient,private router:Router) { }
 
-  UserLogin(login:Login): void{
+  UserLogin(login:Login){
 
       const headers = new HttpHeaders({ 'Content-Type': 'application/json; charset=utf-8',
       'Authorization':'Bearer '+localStorage.getItem('userToken')});
       const as=JSON.stringify(login);
 
-       this.http.post(this.rooturl,as, { headers:headers }).subscribe(
-        (next:any)=>{
-          //console.log(next.token);
-          localStorage.setItem('userToken',next.token)
-
-          let token=localStorage.getItem('userToken');
-          let jwtData=token.split('.')[1]
-          let decodedJwtJsonData=window.atob(jwtData);
-          let decodedJwtData=JSON.parse(decodedJwtJsonData);
-          let roleName=decodedJwtData.role;
-          localStorage.setItem('userRole',roleName);
-          localStorage.setItem('userName',decodedJwtData.name);
-
-          console.log("isrole: "+roleName);
-          console.log("name: "+decodedJwtData.name);
-
-          catchError(this.handleError),
-          this.router.navigate(['/home',login.Email]);
-        });
+       return this.http.post(this.rooturl,as, { headers:headers });
   }
 
   isLoggedIn():boolean{

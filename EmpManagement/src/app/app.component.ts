@@ -16,6 +16,7 @@ export class AppComponent implements OnInit{
   logintoken:string;
 
   ngOnInit(): void {
+
     this.logintoken=localStorage.getItem('userToken');
 
     var hubConnection = new signalR.HubConnectionBuilder()
@@ -47,7 +48,8 @@ export class AppComponent implements OnInit{
 
     hubConnection.on('ProfileEditNotify',(name:string)=>{
       var message=name + " Edited Their Profile";
-      var li = document.createElement("li");
+      var li = document.createElement("a");
+      li.className="dropdown-item"
       li.textContent = message;
       var notifyMenu = document.getElementById("NotificationMenu");
       notifyMenu.appendChild(li);
@@ -56,14 +58,13 @@ export class AppComponent implements OnInit{
     });
 
   try {
-    hubConnection.start();
-    console.log("Hub connection started");
-} catch (err) {
-    console.log(err);
-}
-
+          hubConnection.start();
+          console.log("Hub connection started");
+      }
+      catch (err) {
+          console.log(err);
+      }
   }
-
 
 
 }

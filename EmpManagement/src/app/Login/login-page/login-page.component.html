@@ -1,9 +1,12 @@
-<form>
+<form #form="ngForm">
   <label>Email</label><br>
-  <input type="text" placeholder="Email" name="Email" [(ngModel)]="LoginDetails.Email"><br><br>
+  <input type="text" placeholder="Email" name="Email" [(ngModel)]="LoginDetails.Email" required><br><br>
   <label>Password</label><br>
-  <input type="password" placeholder="password" name="Password" [(ngModel)]="LoginDetails.Password"><br><br>
+  <input type="password" placeholder="password" name="Password" [(ngModel)]="LoginDetails.Password" required><br><br>
+  <div *ngIf="message != ''" class="alert-danger">
+    {{message}}
+  </div><br>
 
-  <button class="btn btn-primary" (click)="Login()">Login</button>
+  <button class="btn btn-primary" [disabled]="(form.invalid)" (click)="Login()">Login</button>
 </form>
 <a  class="text-dark" [routerLink]="['/resetpassword']">Forgot Password?</a>

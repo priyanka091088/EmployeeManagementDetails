@@ -1,3 +1,9 @@
+<script type="text/javascript">
+   function myFunction() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+</script>
+
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
   <div class="container">
       <a class="navbar-brand" >Employee Management System</a>
@@ -12,14 +18,14 @@
               <li class="nav-item">
 
                   <div class="dropdown">
-                      <a href="#" class="dropbtn">
-                          Notifications
-                          <i class="fa fa-caret-down"></i>
-                      </a>
-                      <div class="dropdown-content">
-                          <ul id="NotificationMenu"></ul>
-                      </div>
+                    <a class="nav-link dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Notifications
+                    </a>
+                    <div class="dropdown-menu"  id="NotificationMenu">
+
+                    </div>
                   </div>
+
               </li>
 
 

@@ -24,8 +24,7 @@ department:Department[];
 departmentDetails:Department[]=[];
 Id:number;
  empEmail=localStorage.getItem('userName');
-  constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,
-    private signalrService:SignalRService,private http:HttpClient) { }
+  constructor(private empService:EmployeeService,private departService:DepartmentService,private router:Router,private http:HttpClient) { }
 
   ngOnInit(): void {
 
@@ -43,11 +42,6 @@ Id:number;
     this.empService.addEmployee(employee).subscribe(
       res =>{
         alert(`employee successfully added`);
-
-
-       /* this.signalrService.createConnection();
-        this.signalrService.startConnection();
-        this.signalrService.addEmployeeSendNotification(employee);*/
         this.onSaveComplete();
       },
       err=>{
@@ -81,10 +75,22 @@ Id:number;
       DepartName:''
     }
   }
-  private startHttpRequest = () => {
-    this.http.get('https://localhost:44368/api/Employee')
-      .subscribe(res => {
-        console.log(res);
-      })
-    }
+  message:string='';
+  emailAlreadyExist:boolean=false;
+
+  emailCheckUnique(email:string){
+
+    this.empService.getEmployees().subscribe({
+      next: employee=>{
+        this.employeeList=employee;
+        this.employeeDetails=this.employeeList.filter(e=>e.Email==email);
+
+        if(this.employeeDetails.length>0 || email=="shrutisingh@gmail.com" || email=="Yashpatel@gmail.com"){
+          this.emailAlreadyExist=true;
+          this.message="Email already exists";
+        }
+      }
+    })
+
+  }
 }

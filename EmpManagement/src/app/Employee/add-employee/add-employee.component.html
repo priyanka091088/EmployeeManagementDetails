@@ -15,7 +15,12 @@
                 <input type="text" id="addressInput" name="Address" placeholder="Your Address" [(ngModel)]="employee.Address" maxlength="100" required/><br /><br />
 
                 <label>Email</label>
-                <input type="text" name="Email" id="emailInput" placeholder="Your Email-Id" [(ngModel)]="employee.Email" maxlength="100" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/><br /><br />
+                <input type="text" name="Email" id="emailInput" placeholder="Your Email-Id" [(ngModel)]="employee.Email" maxlength="100"
+                (change)="emailCheckUnique(form.value.Email)" pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/><br /><br />
+
+                <div *ngIf="message != ''" class="alert-danger">
+                  {{message}}
+                </div><br>
 
                 <label>Qualification</label>
                 <input type="text" id="qualificationInput" name="Qualification" placeholder="Your Qualifiaction" [(ngModel)]="employee.Qualification" required/><br /><br />
@@ -34,7 +39,7 @@
 
                 <br /><br />
 
-                <button type="submit" class="btn btn-success btn-block" (click)="onSubmit(employee)" [disabled]="form.invalid">Save</button>
+                <button type="submit" class="btn btn-success btn-block" (click)="onSubmit(employee)" [disabled]="(form.invalid)||(emailAlreadyExist)">Save</button>
             </form>
         </div>
 
