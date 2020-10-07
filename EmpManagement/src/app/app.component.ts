@@ -23,20 +23,35 @@ export class AppComponent implements OnInit{
     .build();
 
 
-    hubConnection.on('departAddNotify',function(message){
-      alert(message);
+    hubConnection.on('departAddNotify',(name:string)=>{
+      var message="New Department " + name + " Added By Admin";
+      var li = document.createElement("li");
+      li.textContent = message;
+      var notifyMenu = document.getElementById("NotificationMenu");
+      notifyMenu.appendChild(li);
+
       console.log(message);
     });
 
 
-    hubConnection.on('employeeAddNotify',function(message){
-      alert(message);
+    hubConnection.on('employeeAddNotify',(name:string)=>{
+      var message="New Employee " + name + " Was added By Admin";
+      var li = document.createElement("li");
+      li.textContent = message;
+      var notifyMenu = document.getElementById("NotificationMenu");
+      notifyMenu.appendChild(li);
+
       console.log(message);
     });
 
 
-    hubConnection.on('ProfileEditNotify',function(message){
-      alert(message);
+    hubConnection.on('ProfileEditNotify',(name:string)=>{
+      var message=name + " Edited Their Profile";
+      var li = document.createElement("li");
+      li.textContent = message;
+      var notifyMenu = document.getElementById("NotificationMenu");
+      notifyMenu.appendChild(li);
+
       console.log(message);
     });
 

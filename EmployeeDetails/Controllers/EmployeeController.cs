@@ -111,9 +111,8 @@ namespace EmployeeDetails.Controllers
 
                 var dept = _context.department.Where(d => d.DepartId == employee.DepartId).First().DepartName;
                 var groupName = "Employee" + dept;
-                await hubContext.Clients.Group(groupName).SendAsync("employeeAddNotify", "Employee added by admin");
-
-                //await hubContext.Clients.All.SendAsync("employeeAddNotify", "Employee added by admin");
+                var empName = employee.Name + " " + employee.Surname;
+                await hubContext.Clients.Group(groupName).SendAsync("employeeAddNotify", empName);
             }
 
             return CreatedAtAction("GetEmployee", new { id = employee.Eid }, employee);

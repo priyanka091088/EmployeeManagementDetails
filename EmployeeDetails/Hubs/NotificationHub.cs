@@ -31,9 +31,9 @@ namespace EmployeeDetails.Hubs
             }
             else if (this.Context.User.IsInRole("Employee"))
             {
-                string dept = _context.employee.Include(e => e.Department).Where(e => e.Email == this.Context.User.Identity.Name).
+                string depart = _context.employee.Include(e => e.Department).Where(e => e.Email == this.Context.User.Identity.Name).
                     First().Department.DepartName;
-                var groupName = "Employee" + dept;
+                var groupName = "Employee" + depart;
                 await this.Groups.AddToGroupAsync(this.Context.ConnectionId, groupName);
             }
             await base.OnConnectedAsync();
